@@ -1,0 +1,20 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Service" {
+
+}
+
+package "Controller" {
+
+}
+
+package "Auth" {
+
+}
+
+package "Config" {
+
+}
+
+@enduml

@@ -1,0 +1,48 @@
+@startuml
+
+!define RECTANGLE class
+left to right direction
+
+actor User
+actor Admin
+
+rectangle "Tennis Reservation System" {
+    usecase "Login" as UC_Login
+    usecase "Register" as UC_Register
+    
+    ' COURT MANAGEMENT '
+    usecase "Create Court" as UC_CreateCourt
+    usecase "Read Courts" as UC_ListCourts
+    usecase "Update Court" as UC_UpdateCourt
+    usecase "Delete Court" as UC_DeleteCourt
+
+    ' RESERVATION  MANAGEMENT ' 
+    usecase "Create Reservation" as UC_CreateReservation
+    usecase "Read Reservations" as UC_ListReservations
+    usecase "Update Reservation" as UC_UpdateReservation
+    usecase "Delete Reservation" as UC_DeleteReservation
+}
+
+User --> UC_Login
+User --> UC_Register
+
+User --> UC_CreateReservation
+User --> UC_ListReservations
+User --> UC_UpdateReservation
+User --> UC_DeleteReservation
+
+User --> UC_ListCourts
+
+Admin -U-> UC_Login
+
+Admin -U-> UC_CreateReservation
+Admin -U-> UC_ListReservations
+Admin -U-> UC_UpdateReservation
+Admin -U-> UC_DeleteReservation
+
+Admin -U-> UC_CreateCourt
+Admin -U-> UC_ListCourts
+Admin -U-> UC_UpdateCourt
+Admin -U-> UC_DeleteCourt
+
+@enduml

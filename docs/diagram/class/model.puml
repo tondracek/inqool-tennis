@@ -1,0 +1,67 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "model" {
+
+  class Price {
+    - value: BigDecimal
+    - currencyCode: String
+    + getFormattedPrice(): String
+  }
+
+  class SurfaceType {
+    - id: UUID
+    - name: String
+    - pricePerMinute: Price
+    - deleted: boolean
+  }
+  SurfaceType "1" --> "1" Price : -pricePerMinute
+
+  class Court {
+    - id: UUID
+    - name: String
+    - surfaceType: SurfaceType
+    - deleted: boolean
+  }
+  Court "*" --> "1" SurfaceType : -surfaceType
+
+  enum GameType {
+    SINGLES
+    DOUBLES
+  }
+
+  class Customer {
+    - id: UUID
+    - phoneNumber: String
+    - name: String
+    - deleted: boolean
+  }
+
+  class Reservation {
+    - id: UUID
+    - court: Court
+    - customer: Customer
+    - startTime: LocalDateTime
+    - endTime: LocalDateTime
+    - price: Price
+    - gameType: GameType
+    - deleted: boolean
+  }
+  Reservation "*" --> "1" Court : -court
+  Reservation "*" --> "1" Customer : -reservedBy
+
+  enum UserRole {
+    USER
+    ADMIN
+  }
+
+  class User {
+    - id: UUID
+    - email: String
+    - passwordHash: String
+    - role: UserRole
+    - deleted: boolean
+  }
+}
+
+@enduml
