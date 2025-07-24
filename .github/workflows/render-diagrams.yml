@@ -6,6 +6,9 @@ on:
       - 'docs/diagram/**/*.puml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -21,10 +24,10 @@ jobs:
             -v ${{ github.workspace }}/docs/diagram:/in \
             -v ${{ github.workspace }}/docs/diagram-img:/out \
             plantuml/plantuml:1.2024.4 \
-            -failfast -nbthread auto -tpng /in -o /out
+            -failfast -nbthread auto -tsvg /in -o /out
 
       - name: Commit and push rendered diagrams
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "🖼️ Auto-update UML diagrams"
-          file_pattern: docs/diagram-img/*.png
+          file_pattern: docs/diagram-img/*.svg

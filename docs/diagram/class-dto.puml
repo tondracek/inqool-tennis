@@ -5,7 +5,6 @@ skinparam classAttributeIconSize 0
 package "Dto" {
 
   package "Reservation" {
-
 		class CreateReservationDto {
 			- courtId: UUID
 			- startTime: LocalDateTime

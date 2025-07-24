@@ -1,5 +1,6 @@
 @startuml
 
+
 !define RECTANGLE class
 left to right direction
 
@@ -9,7 +10,7 @@ actor Admin
 rectangle "Tennis Reservation System" {
     usecase "Login" as UC_Login
     usecase "Register" as UC_Register
-    
+
     ' COURT MANAGEMENT '
     usecase "Create Court" as UC_CreateCourt
     usecase "Read Courts" as UC_ListCourts
