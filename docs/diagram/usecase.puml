@@ -1,6 +1,5 @@
 @startuml
 
-
 !define RECTANGLE class
 left to right direction
 
