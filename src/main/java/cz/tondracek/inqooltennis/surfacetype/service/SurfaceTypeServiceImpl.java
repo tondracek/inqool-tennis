@@ -1,6 +1,7 @@
 package cz.tondracek.inqooltennis.surfacetype.service;
 
 import cz.tondracek.inqooltennis.core.exception.NotFoundException;
+import cz.tondracek.inqooltennis.surfacetype.data.SurfaceTypeRepository;
 import cz.tondracek.inqooltennis.surfacetype.dto.CreateSurfaceTypeDto;
 import cz.tondracek.inqooltennis.surfacetype.dto.SurfaceTypeDetailDto;
 import cz.tondracek.inqooltennis.surfacetype.dto.UpdateSurfaceTypeDto;
@@ -8,56 +9,56 @@ import cz.tondracek.inqooltennis.surfacetype.mapper.SurfaceTypeMapper;
 import cz.tondracek.inqooltennis.surfacetype.model.SurfaceType;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
 public class SurfaceTypeServiceImpl implements SurfaceTypeService {
 
-    private final Map<UUID, SurfaceType> surfaceTypes = new HashMap<>();
-    private final SurfaceTypeMapper surfaceTypeMapper;
+    private final SurfaceTypeRepository repository;
 
-    public SurfaceTypeServiceImpl(SurfaceTypeMapper surfaceTypeMapper) {
-        this.surfaceTypeMapper = surfaceTypeMapper;
+    private final SurfaceTypeMapper mapper;
+
+    public SurfaceTypeServiceImpl(
+            SurfaceTypeRepository repository,
+            SurfaceTypeMapper surfaceTypeMapper
+    ) {
+        this.repository = repository;
+        this.mapper = surfaceTypeMapper;
     }
 
     @Override
     public SurfaceTypeDetailDto createSurfaceType(CreateSurfaceTypeDto dto) {
         UUID id = UUID.randomUUID();
-        SurfaceType surfaceType = surfaceTypeMapper.toSurfaceType(dto, id, false);
+        SurfaceType surfaceType = mapper.toSurfaceType(dto, id, false);
 
-        surfaceTypes.put(id, surfaceType);
+        SurfaceType result = repository.create(surfaceType);
 
-        return surfaceTypeMapper.toDetailDto(surfaceType);
+        return mapper.toDetailDto(result);
     }
 
     @Override
     public SurfaceTypeDetailDto updateSurfaceType(UUID id, UpdateSurfaceTypeDto dto) {
-        SurfaceType original = surfaceTypes.get(id);
-        if (original == null || original.isDeleted())
-            throw new NotFoundException();
-        SurfaceType updated = surfaceTypeMapper.toSurfaceType(dto, original);
+        SurfaceType original = repository.findById(id);
+        if (original.isDeleted()) throw new NotFoundException();
 
-        surfaceTypes.put(id, updated);
+        SurfaceType updated = mapper.toSurfaceType(dto, original);
+        SurfaceType result = repository.update(updated);
 
-        return surfaceTypeMapper.toDetailDto(updated);
+        return mapper.toDetailDto(result);
     }
 
     @Override
     public List<SurfaceTypeDetailDto> getAllSurfaceTypes() {
-        return surfaceTypes.values().stream()
-                .map(surfaceTypeMapper::toDetailDto)
-                .filter(surfaceTypeDetailDto -> !surfaceTypeDetailDto.isDeleted())
+        return repository.findAllActive()
+                .stream()
+                .map(mapper::toDetailDto)
                 .toList();
     }
 
     @Override
-    public boolean deleteSurfaceType(UUID id) {
-        SurfaceType original = surfaceTypes.get(id);
-        if (original == null)
-            throw new NotFoundException();
+    public void softDeleteSurfaceType(UUID id) {
+        SurfaceType original = repository.findById(id);
 
         SurfaceType updated = new SurfaceType(
                 original.getId(),
@@ -65,8 +66,7 @@ public class SurfaceTypeServiceImpl implements SurfaceTypeService {
                 original.getPricePerMinute(),
                 true
         );
-        surfaceTypes.put(id, updated);
 
-        return true;
+        repository.update(updated);
     }
 }

@@ -20,5 +20,5 @@ public interface SurfaceTypeService {
 
     List<SurfaceTypeDetailDto> getAllSurfaceTypes();
 
-    boolean deleteSurfaceType(UUID id);
+    void softDeleteSurfaceType(UUID id);
 }

@@ -22,18 +22,6 @@ public class SurfaceTypeDaoImpl implements SurfaceTypeDao {
     }
 
     @Override
-    public Optional<SurfaceTypeEntity> findById(UUID id) {
-        return Optional.ofNullable(entityManager.find(SurfaceTypeEntity.class, id));
-    }
-
-    @Override
-    public List<SurfaceTypeEntity> findAll() {
-        return entityManager
-                .createQuery("SELECT s FROM SurfaceTypeEntity s", SurfaceTypeEntity.class)
-                .getResultList();
-    }
-
-    @Override
     public void update(SurfaceTypeEntity entity) {
         entityManager.merge(entity);
     }
@@ -43,5 +31,17 @@ public class SurfaceTypeDaoImpl implements SurfaceTypeDao {
         entityManager.remove(entityManager.contains(entity)
                 ? entity
                 : entityManager.merge(entity));
+    }
+
+    @Override
+    public Optional<SurfaceTypeEntity> findById(UUID id) {
+        return Optional.ofNullable(entityManager.find(SurfaceTypeEntity.class, id));
+    }
+
+    @Override
+    public List<SurfaceTypeEntity> findAllActive() {
+        return entityManager
+                .createQuery("SELECT s FROM SurfaceTypeEntity s WHERE s.deleted=false", SurfaceTypeEntity.class)
+                .getResultList();
     }
 }

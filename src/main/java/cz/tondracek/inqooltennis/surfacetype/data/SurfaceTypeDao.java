@@ -8,11 +8,11 @@ public interface SurfaceTypeDao {
 
     void save(SurfaceTypeEntity entity);
 
-    Optional<SurfaceTypeEntity> findById(UUID id);
-
-    List<SurfaceTypeEntity> findAll();
-
     void update(SurfaceTypeEntity entity);
 
     void delete(SurfaceTypeEntity entity);
+
+    Optional<SurfaceTypeEntity> findById(UUID id);
+
+    List<SurfaceTypeEntity> findAllActive();
 }

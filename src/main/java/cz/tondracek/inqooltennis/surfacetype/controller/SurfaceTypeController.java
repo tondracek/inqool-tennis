@@ -54,6 +54,7 @@ public class SurfaceTypeController {
     public ResponseEntity<Boolean> deleteSurfaceType(
             @PathVariable UUID id
     ) {
-        return ResponseEntity.ok(service.deleteSurfaceType(id));
+        service.softDeleteSurfaceType(id);
+        return ResponseEntity.ok().build();
     }
 }
