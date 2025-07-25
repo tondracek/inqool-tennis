@@ -1,0 +1,38 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package "Auth" {
+	package "model" {
+
+	}
+
+	package "dto" {
+	  class LoginRequestDto {
+	    - email: String
+	    - password: String
+	  }
+
+	  class LoginResponseDto {
+	    - token: String
+	    - refreshToken: String
+	    - expiresAt: Instant
+	  }
+	}
+
+	package "service" {
+	  class AuthService {
+	    + login(dto: LoginRequestDto): LoginResponseDto
+	    + refreshToken(refreshToken: String): LoginResponseDto
+	  }
+	}
+
+	package "controller" {
+	  class AuthController {
+	    + login(dto: LoginRequestDto): LoginResponseDto
+	    + refreshToken(refreshToken: String): LoginResponseDto
+	  }
+	}
+}
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+left to right direction
+
+title Tennis Club Reservation System
+
+!include class-reservation.puml
+!include class-court.puml
+!include class-surfaceType.puml
+!include class-customer.puml
+!include class-user.puml
+!include class-common.puml
+!include class-auth.puml
+
+@enduml

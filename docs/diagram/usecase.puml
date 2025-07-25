@@ -1,0 +1,66 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Customer" as Customer
+actor "Admin" as Admin
+actor "Anonymous User" as Anonymous
+
+rectangle "Tennis Reservation System" {
+
+  ' AUTH '
+  usecase "Login" as UC_Login
+
+  ' COURT MANAGEMENT '
+  usecase "Admin Courts Management" as UC_ManageCourts
+  usecase "List Courts" as UC_ListCourts
+
+  ' RESERVATION MANAGEMENT '
+  usecase "Admin Reservations Management" as UC_ManageReservations
+  usecase "Create Reservation" as UC_CreateReservation
+  usecase "List Reservations by Court" as UC_ListReservationsByCourt
+  usecase "List Reservations by Phone number" as UC_ListReservationsByPhone
+
+  ' SURFACE TYPE MANAGEMENT '
+  usecase "Admin Surface Types Management" as UC_ManageSurfaceTypes
+  usecase "List Surface Types" as UC_ListSurfaceTypes
+
+	' CUSTOMER MANAGEMENT '
+  usecase "Create Customer" as UC_CreateCustomer
+
+  ' USER MANAGEMENT (Admin only) '
+  usecase "Admin Users Management" as UC_ManageUsers
+
+  ' RELATIONS '
+	UC_CreateReservation --> UC_CreateCustomer : <<include>>
+}
+
+' AUTH '
+Anonymous --> UC_Login
+
+' COURT '
+Admin --> UC_ManageCourts
+Admin --> UC_ListCourts
+
+Customer --> UC_ListCourts
+
+' RESERVATION '
+Admin --> UC_ManageReservations
+Admin --> UC_CreateReservation
+Admin --> UC_ListReservationsByCourt
+Admin --> UC_ListReservationsByPhone
+
+Customer --> UC_CreateReservation
+Customer --> UC_ListReservationsByPhone
+
+' SURFACE TYPE '
+Admin --> UC_ManageSurfaceTypes
+Admin --> UC_ListSurfaceTypes
+
+Customer --> UC_ListSurfaceTypes
+
+' USER '
+Admin --> UC_ManageUsers
+
+@enduml

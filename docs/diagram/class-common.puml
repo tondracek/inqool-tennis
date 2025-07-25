@@ -1,0 +1,23 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package "Common" {
+
+	package "model" {
+	  class Price {
+	    - value: BigDecimal
+	    - currencyCode: String
+	    + getFormattedPrice(): String
+	  }
+	}
+
+	package "dto" {
+		class Price {
+			- amount: BigDecimal
+			- currencyCode: String
+		}
+	}
+}
+
+@enduml
