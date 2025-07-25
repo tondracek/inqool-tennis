@@ -1,11 +1,15 @@
 package cz.tondracek.inqooltennis.common.dto;
 
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+import lombok.Value;
 
 import java.math.BigDecimal;
 
-@Data
+@Value
 public class PriceDto {
-    private BigDecimal amount;
-    private String currencyCode;
+    @PositiveOrZero
+    BigDecimal amount;
+    @NotBlank
+    String currencyCode;
 }

@@ -1,5 +1,6 @@
 package cz.tondracek.inqooltennis.surfacetype.mapper;
 
+import cz.tondracek.inqooltennis.common.mapper.PriceMapper;
 import cz.tondracek.inqooltennis.surfacetype.dto.CreateSurfaceTypeDto;
 import cz.tondracek.inqooltennis.surfacetype.dto.SurfaceTypeDetailDto;
 import cz.tondracek.inqooltennis.surfacetype.dto.UpdateSurfaceTypeDto;
@@ -9,7 +10,7 @@ import org.mapstruct.Mapping;
 
 import java.util.UUID;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = PriceMapper.class)
 public interface SurfaceTypeMapper {
 
     SurfaceType toSurfaceType(CreateSurfaceTypeDto dto, UUID id, boolean deleted);

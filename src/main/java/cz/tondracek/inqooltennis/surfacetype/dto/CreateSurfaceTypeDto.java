@@ -1,10 +1,14 @@
 package cz.tondracek.inqooltennis.surfacetype.dto;
 
 import cz.tondracek.inqooltennis.common.dto.PriceDto;
-import lombok.Data;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Value;
 
-@Data
+@Value
 public class CreateSurfaceTypeDto {
-    private String name;
-    private PriceDto pricePerMinute;
+    @NotBlank
+    String name;
+    @Valid
+    PriceDto pricePerMinute;
 }
