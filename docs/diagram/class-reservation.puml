@@ -70,11 +70,6 @@ package "Reservation" {
 			- court: CourtDetailDto
 			- reservations: List<ReservationPreviewDto>
 		}
-
-    enum GameTypeDto {
-      SINGLES
-      DOUBLES
-    }
   }
 
   package "service" {
