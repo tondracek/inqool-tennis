@@ -9,6 +9,6 @@ import java.util.UUID;
 public class SurfaceTypeDetailDto {
     UUID id;
     String name;
-    PriceDto price;
+    PriceDto pricePerMinute;
     boolean deleted;
 }
