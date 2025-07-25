@@ -43,7 +43,6 @@ package "User" {
 			+ createUser(createDto: CreateUserDto): UserDetailDto
 			+ updateUser(id: UUID, updateDto: UpdateUserDto): UserDetailDto
 			+ deleteUser(id: UUID): boolean
-			+ getUserById(id: UUID): UserDetailDto
 			+ getAllUsers(): List<UserDetailDto>
 		}
 	}
@@ -53,7 +52,6 @@ package "User" {
 			+ createUser(createDto: CreateUserDto): UserDetailDto
 			+ updateUser(id: UUID, updateDto: UpdateUserDto): UserDetailDto
 			+ deleteUser(id: UUID): boolean
-			+ getUserById(id: UUID): UserDetailDto
 			+ getAllUsers(): List<UserDetailDto>
 		}
 	}

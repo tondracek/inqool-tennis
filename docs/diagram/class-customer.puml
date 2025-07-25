@@ -36,7 +36,6 @@ package "Customer" {
 			+ createCustomer(createDto: CreateCustomerDto): CustomerDetailDto
 			+ updateCustomer(id: UUID, updateDto: UpdateCustomerDto): CustomerDetailDto
 			+ deleteCustomer(id: UUID): boolean
-			+ getCustomerById(id: UUID): CustomerDetailDto
 			+ getAllCustomers(): List<CustomerDetailDto>
 		}
 	}
@@ -46,7 +45,6 @@ package "Customer" {
 			+ createCustomer(createDto: CreateCustomerDto): CustomerDetailDto
 			+ updateCustomer(id: UUID, updateDto: UpdateCustomerDto): CustomerDetailDto
 			+ deleteCustomer(id: UUID): boolean
-			+ getCustomerById(id: UUID): CustomerDetailDto
 			+ getAllCustomers(): List<CustomerDetailDto>
 		}
 	}

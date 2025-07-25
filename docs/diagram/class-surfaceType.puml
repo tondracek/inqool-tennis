@@ -36,7 +36,6 @@ package "SurfaceType" {
 		class SurfaceTypeService {
 			+ createSurfaceType(dto: CreateSurfaceTypeDto): SurfaceTypeDetailDto
 			+ updateSurfaceType(id: UUID, dto: UpdateSurfaceTypeDto): SurfaceTypeDetailDto
-			+ getSurfaceTypeById(id: UUID): SurfaceTypeDetailDto
 			+ getAllSurfaceTypes(): List<SurfaceTypeDetailDto>
 			+ deleteSurfaceType(id: UUID): boolean
 		}
@@ -46,9 +45,8 @@ package "SurfaceType" {
 		class SurfaceTypeController {
 			+ createSurfaceType(dto: CreateSurfaceTypeDto): SurfaceTypeDetailDto
 			+ updateSurfaceType(id: UUID, dto: UpdateSurfaceTypeDto): SurfaceTypeDetailDto
-			+ getSurfaceTypeById(id: UUID): SurfaceTypeDetailDto
-			+ getAllSurfaceTypes(): List<SurfaceTypeDetailDto>
 			+ deleteSurfaceType(id: UUID): boolean
+			+ getAllSurfaceTypes(): List<SurfaceTypeDetailDto>
 		}
 	}
 }
