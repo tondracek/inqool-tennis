@@ -4,14 +4,46 @@
 
 ![Use Case](docs/diagram-img/usecase.svg)
 
-## Class Diagram
+---
 
-![Class Diagram](docs/diagram-img/class.svg)
+## Class Diagram – Common Types
 
-## Class Diagram – DTOs
+![Common](docs/diagram-img/class-common.svg)
 
-![Class DTOs](docs/diagram-img/class-dto.svg)
+---
 
-## Class Diagram – Domain Models
+## Class Diagram – Court
 
-![Class Models](docs/diagram-img/class-model.svg)
+![Court](docs/diagram-img/class-court.svg)
+
+---
+
+## Class Diagram – Surface Type
+
+![Surface Type](docs/diagram-img/class-surfaceType.svg)
+
+---
+
+## Class Diagram – Reservation
+
+![Reservation](docs/diagram-img/class-reservation.svg)
+
+---
+
+## Class Diagram – Customer
+
+![Customer](docs/diagram-img/class-customer.svg)
+
+---
+
+## Class Diagram – User
+
+![User](docs/diagram-img/class-user.svg)
+
+---
+
+## Class Diagram – Auth
+
+![Auth](docs/diagram-img/class-auth.svg)
+
+---
