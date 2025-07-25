@@ -1,0 +1,62 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package "User" {
+	package "model" {
+	  class User {
+	    - id: UUID
+	    - email: String
+	    - passwordHash: String
+	    - role: UserRole
+	    - deleted: boolean
+	  }
+
+	  enum UserRole {
+	    USER
+	    ADMIN
+	  }
+	}
+
+	package "dto" {
+		class CreateUserDto {
+	    - email: String
+	    - password: String
+	    - role: UserRole
+	  }
+
+	  class UpdateUserDto {
+	    - email: String
+	    - role: UserRole
+	  }
+
+	  class UserDetailDto {
+	    - id: UUID
+	    - email: String
+	    - role: UserRole
+	    - deleted: boolean
+	  }
+	}
+
+	package "service" {
+		class UserService {
+			+ createUser(createDto: CreateUserDto): UserDetailDto
+			+ updateUser(id: UUID, updateDto: UpdateUserDto): UserDetailDto
+			+ deleteUser(id: UUID): boolean
+			+ getUserById(id: UUID): UserDetailDto
+			+ getAllUsers(): List<UserDetailDto>
+		}
+	}
+
+	package "controller" {
+		class UserController {
+			+ createUser(createDto: CreateUserDto): UserDetailDto
+			+ updateUser(id: UUID, updateDto: UpdateUserDto): UserDetailDto
+			+ deleteUser(id: UUID): boolean
+			+ getUserById(id: UUID): UserDetailDto
+			+ getAllUsers(): List<UserDetailDto>
+		}
+	}
+}
+
+@enduml

@@ -1,0 +1,56 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package "Court" {
+
+	package "model" {
+	  class Court {
+	    - id: UUID
+	    - name: String
+	    - surfaceType: SurfaceType
+	    - deleted: boolean
+	  }
+	}
+
+	package "dto" {
+		class CreateCourtDto {
+			- name: String
+			- surfaceTypeId: UUID
+		}
+
+		class UpdateCourtDto {
+			- name: String
+			- surfaceTypeId: UUID
+		}
+
+		class CourtDetailDto {
+			- id: UUID
+			- name: String
+			- surfaceTypeName: String
+			- deleted: boolean
+		}
+	}
+
+	package "service" {
+		class CourtService {
+			+ createCourt(createDto: CreateCourtDto): CourtDetailDto
+			+ updateCourt(id: UUID, updateDto: UpdateCourtDto): CourtDetailDto
+			+ deleteCourt(id: UUID): boolean
+			+ getCourtById(id: UUID): CourtDetailDto
+			+ getAllCourts(): List<CourtDetailDto>
+		}
+	}
+
+	package "controller" {
+		class CourtController {
+			+ createCourt(createDto: CreateCourtDto): CourtDetailDto
+			+ updateCourt(id: UUID, updateDto: UpdateCourtDto): CourtDetailDto
+			+ deleteCourt(id: UUID): boolean
+			+ getCourtById(id: UUID): CourtDetailDto
+			+ getAllCourts(): List<CourtDetailDto>
+		}
+	}
+}
+
+@enduml

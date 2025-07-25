@@ -1,0 +1,56 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package "SurfaceType" {
+
+	package "model" {
+	  class SurfaceType {
+      - id: UUID
+      - name: String
+      - pricePerMinute: Price
+      - deleted: boolean
+    }
+	}
+
+	package "dto" {
+	  class CreateSurfaceTypeDto {
+	    - name: String
+	    - pricePerMinute: Price
+	  }
+
+	  class UpdateSurfaceTypeDto {
+	    - name: String
+	    - pricePerMinute: Price
+	  }
+
+	  class SurfaceTypeDetailDto {
+	    - id: UUID
+	    - name: String
+	    - pricePerMinute: Price
+	    - deleted: boolean
+	  }
+	}
+
+	package "service" {
+		class SurfaceTypeService {
+			+ createSurfaceType(dto: CreateSurfaceTypeDto): SurfaceTypeDetailDto
+			+ updateSurfaceType(id: UUID, dto: UpdateSurfaceTypeDto): SurfaceTypeDetailDto
+			+ getSurfaceTypeById(id: UUID): SurfaceTypeDetailDto
+			+ getAllSurfaceTypes(): List<SurfaceTypeDetailDto>
+			+ deleteSurfaceType(id: UUID): boolean
+		}
+	}
+
+	package "controller" {
+		class SurfaceTypeController {
+			+ createSurfaceType(dto: CreateSurfaceTypeDto): SurfaceTypeDetailDto
+			+ updateSurfaceType(id: UUID, dto: UpdateSurfaceTypeDto): SurfaceTypeDetailDto
+			+ getSurfaceTypeById(id: UUID): SurfaceTypeDetailDto
+			+ getAllSurfaceTypes(): List<SurfaceTypeDetailDto>
+			+ deleteSurfaceType(id: UUID): boolean
+		}
+	}
+}
+
+@enduml

@@ -1,0 +1,55 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package "Customer" {
+	package "model" {
+	  class Customer {
+      - id: UUID
+      - phoneNumber: String
+      - name: String
+      - deleted: boolean
+    }
+	}
+
+	package "dto" {
+		class CreateCustomerDto {
+      - phoneNumber: String
+      - name: String
+    }
+
+    class UpdateCustomerDto {
+      - phoneNumber: String
+      - name: String
+    }
+
+    class CustomerDetailDto {
+      - id: UUID
+      - phoneNumber: String
+      - name: String
+      - deleted: boolean
+    }
+	}
+
+	package "service" {
+		class CustomerService {
+			+ createCustomer(createDto: CreateCustomerDto): CustomerDetailDto
+			+ updateCustomer(id: UUID, updateDto: UpdateCustomerDto): CustomerDetailDto
+			+ deleteCustomer(id: UUID): boolean
+			+ getCustomerById(id: UUID): CustomerDetailDto
+			+ getAllCustomers(): List<CustomerDetailDto>
+		}
+	}
+
+	package "controller" {
+		class CustomerController {
+			+ createCustomer(createDto: CreateCustomerDto): CustomerDetailDto
+			+ updateCustomer(id: UUID, updateDto: UpdateCustomerDto): CustomerDetailDto
+			+ deleteCustomer(id: UUID): boolean
+			+ getCustomerById(id: UUID): CustomerDetailDto
+			+ getAllCustomers(): List<CustomerDetailDto>
+		}
+	}
+}
+
+@enduml

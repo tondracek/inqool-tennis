@@ -1,0 +1,104 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package "Reservation" {
+
+	package "model" {
+	  class Reservation {
+	    - id: UUID
+	    - court: Court
+	    - customer: Customer
+	    - startTime: LocalDateTime
+	    - endTime: LocalDateTime
+	    - price: Price
+	    - gameType: GameType
+	    - deleted: boolean
+	    - createdAt: LocalDateTime
+	  }
+
+    enum GameType {
+      SINGLES
+      DOUBLES
+    }
+
+    class ReservationsFilter {
+    	- courtId: UUID
+    	- phoneNumber: String
+    	- onlyFuture: boolean
+    }
+  }
+
+  package "dto" {
+		class CreateReservationDto {
+			- courtId: UUID
+			- startTime: LocalDateTime
+			- endTime: LocalDateTime
+			- gameType: GameType
+			- customerPhoneNumber: String
+			- customerName: String
+		}
+
+		class UpdateReservationDto {
+			- courtId: UUID
+			- startTime: LocalDateTime
+			- endTime: LocalDateTime
+			- gameType: GameType
+		}
+
+		class ReservationPreviewDto {
+			- id: UUID
+			- courtName: String
+			- customerName: String
+			- startTime: LocalDateTime
+			- endTime: LocalDateTime
+		}
+
+		class ReservationDetailDto {
+			- id: UUID
+			- courtDetailDto: CourtDetailDto
+			- customerDetailDto: CustomerDetailDto
+			- startTime: LocalDateTime
+			- endTime: LocalDateTime
+			- gameType: GameTypeDto
+			- price: Price
+			- deleted: boolean
+			- createdAt: LocalDateTime
+		}
+
+		class CourtReservationListDto {
+			- court: CourtDetailDto
+			- reservations: List<ReservationPreviewDto>
+		}
+
+    enum GameTypeDto {
+      SINGLES
+      DOUBLES
+    }
+  }
+
+  package "service" {
+    class ReservationService {
+	    + createReservation(createDto: CreateReservationDto): ReservationDetailDto
+	    + updateReservation(id: UUID, updateDto: UpdateReservationDto): ReservationDetailDto
+	    + deleteReservation(id: UUID): boolean
+	    + getReservationById(id: UUID): ReservationDetailDto
+	    + getAllReservations(filter: ReservationsFilter): List<ReservationDetailDto>
+	  }
+  }
+
+  package "controller" {
+    class ReservationController {
+	    + createReservation(createDto: CreateReservationDto): ReservationDetailDto
+	    + updateReservation(id: UUID, updateDto: UpdateReservationDto): ReservationDetailDto
+	    + deleteReservation(id: UUID): boolean
+	    + getReservationById(id: UUID): ReservationDetailDto
+	    + getAllReservations(): List<ReservationDetailDto>
+
+	    + getCourtReservations(courtId: UUID): CourtReservationListDto
+	    + getReservationsByPhoneNumber(phoneNumber: String, onlyFuture: boolean): List<ReservationPreviewDto>
+    }
+  }
+}
+
+@enduml
