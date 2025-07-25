@@ -13,77 +13,54 @@ rectangle "Tennis Reservation System" {
   usecase "Login" as UC_Login
 
   ' COURT MANAGEMENT '
-  usecase "Manage Courts" as UC_ManageCourts
-  usecase "Get Court" as UC_GetCourt
+  usecase "Admin Courts Management" as UC_ManageCourts
   usecase "List Courts" as UC_ListCourts
 
   ' RESERVATION MANAGEMENT '
+  usecase "Admin Reservations Management" as UC_ManageReservations
   usecase "Create Reservation" as UC_CreateReservation
-  usecase "Update Reservation" as UC_UpdateReservation
-  usecase "Delete Reservation" as UC_DeleteReservation
-  usecase "Get Reservation" as UC_GetReservation
-  usecase "List Reservations" as UC_ListReservations
   usecase "List Reservations by Court" as UC_ListReservationsByCourt
   usecase "List Reservations by Phone number" as UC_ListReservationsByPhone
 
   ' SURFACE TYPE MANAGEMENT '
-  usecase "Manage Surface Types" as UC_ManageSurfaceTypes
-  usecase "Get Surface Type" as UC_GetSurfaceType
+  usecase "Admin Surface Types Management" as UC_ManageSurfaceTypes
   usecase "List Surface Types" as UC_ListSurfaceTypes
 
 	' CUSTOMER MANAGEMENT '
   usecase "Create Customer" as UC_CreateCustomer
-  usecase "Delete Customer" as UC_DeleteCustomer
 
   ' USER MANAGEMENT (Admin only) '
-  usecase "Manage Users" as UC_ManageUsers
-  usecase "Get User" as UC_GetUser
-  usecase "List Users" as UC_ListUsers
+  usecase "Admin Users Management" as UC_ManageUsers
 
   ' RELATIONS '
 	UC_CreateReservation --> UC_CreateCustomer : <<include>>
 }
 
+' AUTH '
 Anonymous --> UC_Login
 
-' CUSTOMER - COURT '
-Customer --> UC_GetCourt
-Customer --> UC_ListCourts
-
-' CUSTOMER - RESERVATION '
-Customer --> UC_CreateReservation
-Customer --> UC_GetReservation
-Customer --> UC_ListReservationsByPhone
-
-' CUSTOMER - SURFACE TYPE '
-Customer --> UC_GetSurfaceType
-Customer --> UC_ListSurfaceTypes
-
-' ADMIN - COURT '
+' COURT '
 Admin --> UC_ManageCourts
-Admin --> UC_GetCourt
 Admin --> UC_ListCourts
 
-' ADMIN - RESERVATION '
+Customer --> UC_ListCourts
+
+' RESERVATION '
+Admin --> UC_ManageReservations
 Admin --> UC_CreateReservation
-Admin --> UC_UpdateReservation
-Admin --> UC_DeleteReservation
-Admin --> UC_GetReservation
-Admin --> UC_ListReservations
 Admin --> UC_ListReservationsByCourt
 Admin --> UC_ListReservationsByPhone
 
-' ADMIN - SURFACE TYPE '
+Customer --> UC_CreateReservation
+Customer --> UC_ListReservationsByPhone
+
+' SURFACE TYPE '
 Admin --> UC_ManageSurfaceTypes
-Admin --> UC_GetSurfaceType
 Admin --> UC_ListSurfaceTypes
 
-' ADMIN - CUSTOMER '
-Admin --> UC_DeleteCustomer
+Customer --> UC_ListSurfaceTypes
 
-' ADMIN - USER '
+' USER '
 Admin --> UC_ManageUsers
-Admin --> UC_GetUser
-Admin --> UC_ListUsers
 
 @enduml
