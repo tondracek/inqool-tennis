@@ -1,14 +1,14 @@
 package cz.tondracek.inqooltennis.surfacetype.model;
 
 import cz.tondracek.inqooltennis.common.model.Price;
-import lombok.Data;
+import lombok.Value;
 
 import java.util.UUID;
 
-@Data
+@Value
 public class SurfaceType {
-    private UUID id;
-    private String name;
-    private Price pricePerMinute;
-    private boolean deleted;
+    UUID id;
+    String name;
+    Price pricePerMinute;
+    boolean deleted;
 }

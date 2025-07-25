@@ -1,10 +1,10 @@
 package cz.tondracek.inqooltennis.surfacetype.dto;
 
 import cz.tondracek.inqooltennis.common.dto.PriceDto;
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class UpdateSurfaceTypeDto {
-    private String name;
-    private PriceDto pricePerMinute;
+    String name;
+    PriceDto pricePerMinute;
 }

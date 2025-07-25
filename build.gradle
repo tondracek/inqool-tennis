@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '3.5.3'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 group = 'cz.tondracek'
@@ -43,10 +44,11 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    implementation 'org.mapstruct:mapstruct'
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 tasks.named('test') {
