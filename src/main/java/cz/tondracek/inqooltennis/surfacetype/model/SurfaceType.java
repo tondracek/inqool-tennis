@@ -1,7 +1,7 @@
 package cz.tondracek.inqooltennis.surfacetype.model;
 
-import cz.tondracek.inqooltennis.common.model.Price;
-import cz.tondracek.inqooltennis.common.model.SoftDeletable;
+import cz.tondracek.inqooltennis.common.SoftDeletable;
+import cz.tondracek.inqooltennis.common.price.model.Price;
 import lombok.Value;
 
 import java.util.UUID;

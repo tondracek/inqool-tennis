@@ -1,7 +1,6 @@
 package cz.tondracek.inqooltennis.surfacetype.mapper;
 
-import cz.tondracek.inqooltennis.common.mapper.PriceMapper;
-import cz.tondracek.inqooltennis.surfacetype.data.SurfaceTypeEntity;
+import cz.tondracek.inqooltennis.common.price.mapper.PriceMapper;
 import cz.tondracek.inqooltennis.surfacetype.dto.CreateSurfaceTypeDto;
 import cz.tondracek.inqooltennis.surfacetype.dto.SurfaceTypeDetailDto;
 import cz.tondracek.inqooltennis.surfacetype.dto.UpdateSurfaceTypeDto;
@@ -23,9 +22,4 @@ public interface SurfaceTypeMapper {
     SurfaceType toSurfaceType(UpdateSurfaceTypeDto dto, SurfaceType original);
 
     SurfaceTypeDetailDto toDetailDto(SurfaceType surfaceType);
-
-    SurfaceTypeEntity toEntity(SurfaceType model);
-
-    @Mapping(target = "withDeleted", ignore = true)
-    SurfaceType toModel(SurfaceTypeEntity entity);
 }

@@ -1,6 +1,5 @@
 package cz.tondracek.inqooltennis.court.mapper;
 
-import cz.tondracek.inqooltennis.court.data.CourtEntity;
 import cz.tondracek.inqooltennis.court.dto.CourtDetailDto;
 import cz.tondracek.inqooltennis.court.dto.CreateCourtDto;
 import cz.tondracek.inqooltennis.court.dto.UpdateCourtDto;
@@ -29,9 +28,4 @@ public interface CourtMapper {
     Court toCourt(UpdateCourtDto update, Court original, SurfaceType surfaceType);
 
     CourtDetailDto toDetailDto(Court court);
-
-    CourtEntity toEntity(Court court);
-
-    @Mapping(target = "withDeleted", ignore = true)
-    Court toModel(CourtEntity entity);
 }

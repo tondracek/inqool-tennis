@@ -1,4 +1,4 @@
-package cz.tondracek.inqooltennis.common.dto;
+package cz.tondracek.inqooltennis.common.price.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;

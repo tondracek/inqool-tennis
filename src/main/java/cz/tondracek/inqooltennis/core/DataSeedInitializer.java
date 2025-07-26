@@ -1,6 +1,6 @@
 package cz.tondracek.inqooltennis.core;
 
-import cz.tondracek.inqooltennis.common.model.Price;
+import cz.tondracek.inqooltennis.common.price.model.Price;
 import cz.tondracek.inqooltennis.court.data.CourtRepository;
 import cz.tondracek.inqooltennis.court.model.Court;
 import cz.tondracek.inqooltennis.surfacetype.data.SurfaceTypeRepository;
@@ -34,14 +34,14 @@ public class DataSeedInitializer {
     SurfaceType tartar = new SurfaceType(
             UUID.randomUUID(),
             "Tartar",
-            new Price(new BigDecimal("1.2"), "CZK"),
+            new Price(BigDecimal.valueOf(1.2), "CZK"),
             false
     );
 
     SurfaceType grass = new SurfaceType(
             UUID.randomUUID(),
             "Grass",
-            new Price(new BigDecimal("2.85"), "CZK"),
+            new Price(BigDecimal.valueOf(2.85), "CZK"),
             false
     );
 

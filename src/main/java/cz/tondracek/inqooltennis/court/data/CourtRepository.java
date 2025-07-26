@@ -12,6 +12,9 @@ public interface CourtRepository {
 
     @NotNull Court update(Court entity);
 
+    /**
+     * Can return court with deleted=true
+     */
     @NotNull Court findById(UUID id);
 
     List<Court> findAllActive();

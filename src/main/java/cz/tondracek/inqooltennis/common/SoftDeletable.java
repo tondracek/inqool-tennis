@@ -1,4 +1,4 @@
-package cz.tondracek.inqooltennis.common.model;
+package cz.tondracek.inqooltennis.common;
 
 public interface SoftDeletable<T> {
 

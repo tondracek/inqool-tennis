@@ -1,11 +1,15 @@
 package cz.tondracek.inqooltennis.surfacetype.data;
 
-import cz.tondracek.inqooltennis.common.data.PriceEmbeddable;
+import cz.tondracek.inqooltennis.common.price.data.PriceEmbeddable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
@@ -14,6 +18,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class SurfaceTypeEntity {
 
     @Id

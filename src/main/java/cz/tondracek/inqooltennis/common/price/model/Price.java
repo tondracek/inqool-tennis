@@ -1,6 +1,5 @@
-package cz.tondracek.inqooltennis.common.model;
+package cz.tondracek.inqooltennis.common.price.model;
 
-import lombok.Data;
 import lombok.Value;
 
 import java.math.BigDecimal;

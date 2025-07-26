@@ -1,5 +1,6 @@
 package cz.tondracek.inqooltennis.court.service;
 
+import cz.tondracek.inqooltennis.core.exception.NotFoundException;
 import cz.tondracek.inqooltennis.court.data.CourtRepository;
 import cz.tondracek.inqooltennis.court.dto.CourtDetailDto;
 import cz.tondracek.inqooltennis.court.dto.CreateCourtDto;
@@ -24,11 +25,11 @@ public class CourtServiceImpl implements CourtService {
     public CourtServiceImpl(
             CourtRepository repository,
             SurfaceTypeRepository surfaceTypeRepository,
-            CourtMapper mapper
+            CourtMapper courtMapper
     ) {
         this.repository = repository;
         this.surfaceTypeRepository = surfaceTypeRepository;
-        this.mapper = mapper;
+        this.mapper = courtMapper;
     }
 
     @Override
@@ -45,6 +46,7 @@ public class CourtServiceImpl implements CourtService {
     @Override
     public CourtDetailDto updateCourt(UUID id, UpdateCourtDto dto) {
         Court original = repository.findById(id);
+        if (original.isDeleted()) throw new NotFoundException();
 
         SurfaceType surfaceType = surfaceTypeRepository.findById(dto.getSurfaceTypeId());
         Court updated = mapper.toCourt(dto, original, surfaceType);

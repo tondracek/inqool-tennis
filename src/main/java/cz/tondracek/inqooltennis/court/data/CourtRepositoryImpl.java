@@ -1,7 +1,7 @@
 package cz.tondracek.inqooltennis.court.data;
 
 import cz.tondracek.inqooltennis.core.exception.NotFoundException;
-import cz.tondracek.inqooltennis.court.mapper.CourtMapper;
+import cz.tondracek.inqooltennis.court.mapper.CourtEntityMapper;
 import cz.tondracek.inqooltennis.court.model.Court;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
@@ -13,9 +13,9 @@ import java.util.UUID;
 public class CourtRepositoryImpl implements CourtRepository {
 
     private final CourtDao dao;
-    private final CourtMapper mapper;
+    private final CourtEntityMapper mapper;
 
-    public CourtRepositoryImpl(CourtDao courtDao, CourtMapper mapper) {
+    public CourtRepositoryImpl(CourtDao courtDao, CourtEntityMapper mapper) {
         this.dao = courtDao;
         this.mapper = mapper;
     }

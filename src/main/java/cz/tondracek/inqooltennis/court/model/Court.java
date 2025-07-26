@@ -1,6 +1,6 @@
 package cz.tondracek.inqooltennis.court.model;
 
-import cz.tondracek.inqooltennis.common.model.SoftDeletable;
+import cz.tondracek.inqooltennis.common.SoftDeletable;
 import cz.tondracek.inqooltennis.surfacetype.model.SurfaceType;
 import lombok.Value;
 
