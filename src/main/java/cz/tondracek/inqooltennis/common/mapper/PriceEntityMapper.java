@@ -1,0 +1,13 @@
+package cz.tondracek.inqooltennis.common.mapper;
+
+import cz.tondracek.inqooltennis.common.data.PriceEmbeddable;
+import cz.tondracek.inqooltennis.common.model.Price;
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface PriceEntityMapper {
+
+    PriceEmbeddable toEmbeddable(Price model);
+
+    Price toModel(PriceEmbeddable entity);
+}

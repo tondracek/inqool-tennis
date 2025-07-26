@@ -1,11 +1,12 @@
 package cz.tondracek.inqooltennis.common.model;
 
 import lombok.Data;
+import lombok.Value;
 
 import java.math.BigDecimal;
 
-@Data
+@Value
 public class Price {
-    private BigDecimal amount;
-    private String currencyCode;
+    BigDecimal amount;
+    String currencyCode;
 }
