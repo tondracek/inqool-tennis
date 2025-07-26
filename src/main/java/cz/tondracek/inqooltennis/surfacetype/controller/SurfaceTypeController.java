@@ -45,16 +45,16 @@ public class SurfaceTypeController {
         return ResponseEntity.ok(service.updateSurfaceType(id, dto));
     }
 
-    @GetMapping
-    public ResponseEntity<List<SurfaceTypeDetailDto>> getAllSurfaceTypes() {
-        return ResponseEntity.ok(service.getAllSurfaceTypes());
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteSurfaceType(
             @PathVariable UUID id
     ) {
         service.softDeleteSurfaceType(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<SurfaceTypeDetailDto>> getAllSurfaceTypes() {
+        return ResponseEntity.ok(service.getAllSurfaceTypes());
     }
 }

@@ -27,7 +27,7 @@ package "Court" {
 		class CourtDetailDto {
 			- id: UUID
 			- name: String
-			- surfaceTypeName: String
+			- surfaceTypeDto: SurfaceTypeDetailDto
 			- deleted: boolean
 		}
 	}
@@ -36,7 +36,7 @@ package "Court" {
 		class CourtService {
 			+ createCourt(createDto: CreateCourtDto): CourtDetailDto
 			+ updateCourt(id: UUID, updateDto: UpdateCourtDto): CourtDetailDto
-			+ deleteCourt(id: UUID): boolean
+			+ softDeleteCourt(id: UUID): boolean
 			+ getCourtById(id: UUID): CourtDetailDto
 			+ getAllCourts(): List<CourtDetailDto>
 		}

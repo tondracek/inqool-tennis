@@ -1,8 +1,9 @@
 package cz.tondracek.inqooltennis.surfacetype.data;
 
 import cz.tondracek.inqooltennis.core.exception.NotFoundException;
-import cz.tondracek.inqooltennis.surfacetype.mapper.SurfaceTypeEntityMapper;
+import cz.tondracek.inqooltennis.surfacetype.mapper.SurfaceTypeMapper;
 import cz.tondracek.inqooltennis.surfacetype.model.SurfaceType;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,40 +13,35 @@ import java.util.UUID;
 public class SurfaceTypeRepositoryImpl implements SurfaceTypeRepository {
 
     private final SurfaceTypeDao dao;
-    private final SurfaceTypeEntityMapper mapper;
+    private final SurfaceTypeMapper mapper;
 
     public SurfaceTypeRepositoryImpl(
             SurfaceTypeDao dao,
-            SurfaceTypeEntityMapper surfaceTypeEntityMapper
+            SurfaceTypeMapper surfaceTypeMapper
     ) {
         this.dao = dao;
-        this.mapper = surfaceTypeEntityMapper;
+        this.mapper = surfaceTypeMapper;
     }
 
+    @NotNull
     @Override
     public SurfaceType create(SurfaceType surfaceType) {
         SurfaceTypeEntity entity = mapper.toEntity(surfaceType);
 
         dao.save(entity);
-
         return surfaceType;
     }
 
+    @NotNull
     @Override
     public SurfaceType update(SurfaceType surfaceType) {
         SurfaceTypeEntity entity = mapper.toEntity(surfaceType);
 
         dao.update(entity);
-
         return surfaceType;
     }
 
-    @Override
-    public void delete(UUID id) {
-        SurfaceTypeEntity entity = dao.findById(id).orElseThrow(NotFoundException::new);
-        dao.delete(entity);
-    }
-
+    @NotNull
     @Override
     public SurfaceType findById(UUID id) {
         SurfaceTypeEntity entity = dao.findById(id).orElseThrow(NotFoundException::new);

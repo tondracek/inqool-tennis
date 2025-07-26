@@ -10,8 +10,6 @@ public interface SurfaceTypeDao {
 
     void update(SurfaceTypeEntity entity);
 
-    void delete(SurfaceTypeEntity entity);
-
     Optional<SurfaceTypeEntity> findById(UUID id);
 
     List<SurfaceTypeEntity> findAllActive();

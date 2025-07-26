@@ -1,5 +1,6 @@
 package cz.tondracek.inqooltennis.common.mapper;
 
+import cz.tondracek.inqooltennis.common.data.PriceEmbeddable;
 import cz.tondracek.inqooltennis.common.dto.PriceDto;
 import cz.tondracek.inqooltennis.common.model.Price;
 import org.mapstruct.Mapper;
@@ -10,4 +11,8 @@ public interface PriceMapper {
     Price toModel(PriceDto dto);
 
     PriceDto toDto(Price price);
+
+    PriceEmbeddable toEmbeddable(Price model);
+
+    Price toModel(PriceEmbeddable entity);
 }

@@ -1,4 +1,4 @@
-package cz.tondracek.inqooltennis.surfacetype.data;
+package cz.tondracek.inqooltennis.court.data;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -9,32 +9,33 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
 @Transactional
-public class SurfaceTypeDaoImpl implements SurfaceTypeDao {
+@Repository
+public class CourtDaoImpl implements CourtDao {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public void save(SurfaceTypeEntity entity) {
+    public void save(CourtEntity entity) {
         entityManager.persist(entity);
     }
 
     @Override
-    public void update(SurfaceTypeEntity entity) {
+    public void update(CourtEntity entity) {
         entityManager.merge(entity);
     }
 
     @Override
-    public Optional<SurfaceTypeEntity> findById(UUID id) {
-        return Optional.ofNullable(entityManager.find(SurfaceTypeEntity.class, id));
+    public Optional<CourtEntity> findById(UUID id) {
+        CourtEntity entity = entityManager.find(CourtEntity.class, id);
+        return Optional.ofNullable(entity);
     }
 
     @Override
-    public List<SurfaceTypeEntity> findAllActive() {
+    public List<CourtEntity> findAllActive() {
         return entityManager
-                .createQuery("SELECT s FROM SurfaceTypeEntity s WHERE s.deleted=false", SurfaceTypeEntity.class)
+                .createQuery("SELECT c FROM CourtEntity c WHERE c.deleted = false", CourtEntity.class)
                 .getResultList();
     }
 }

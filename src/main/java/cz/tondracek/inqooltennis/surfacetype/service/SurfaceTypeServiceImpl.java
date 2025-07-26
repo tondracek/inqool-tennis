@@ -30,10 +30,9 @@ public class SurfaceTypeServiceImpl implements SurfaceTypeService {
     @Override
     public SurfaceTypeDetailDto createSurfaceType(CreateSurfaceTypeDto dto) {
         UUID id = UUID.randomUUID();
+
         SurfaceType surfaceType = mapper.toSurfaceType(dto, id, false);
-
         SurfaceType result = repository.create(surfaceType);
-
         return mapper.toDetailDto(result);
     }
 
@@ -60,12 +59,7 @@ public class SurfaceTypeServiceImpl implements SurfaceTypeService {
     public void softDeleteSurfaceType(UUID id) {
         SurfaceType original = repository.findById(id);
 
-        SurfaceType updated = new SurfaceType(
-                original.getId(),
-                original.getName(),
-                original.getPricePerMinute(),
-                true
-        );
+        SurfaceType updated = original.withDeleted(true);
 
         repository.update(updated);
     }
