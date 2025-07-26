@@ -12,7 +12,6 @@ import java.util.UUID;
 public class SurfaceTypeRepositoryImpl implements SurfaceTypeRepository {
 
     private final SurfaceTypeDao dao;
-
     private final SurfaceTypeEntityMapper mapper;
 
     public SurfaceTypeRepositoryImpl(
