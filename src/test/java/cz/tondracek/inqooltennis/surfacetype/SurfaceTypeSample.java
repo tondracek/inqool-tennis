@@ -61,7 +61,23 @@ public class SurfaceTypeSample {
             false
     );
 
-    public static final SurfaceType SURFACE_TYPE_2 = UPDATED_SURFACE_TYPE;
-    public static final SurfaceTypeEntity SURFACE_TYPE_2_ENTITY = UPDATED_SURFACE_TYPE_ENTITY;
-    public static final SurfaceTypeDetailDto SURFACE_TYPE_2_DTO = UPDATED_SURFACE_TYPE_DTO;
+    private static final UUID SURFACE_TYPE_2_ID = UUID.randomUUID();
+    public static final SurfaceType SURFACE_TYPE_2 = new SurfaceType(
+            SURFACE_TYPE_2_ID,
+            "Grass",
+            PriceSample.CZK_100,
+            false
+    );
+    public static final SurfaceTypeEntity SURFACE_TYPE_2_ENTITY = new SurfaceTypeEntity(
+            SURFACE_TYPE_2_ID,
+            "Grass",
+            new PriceEmbeddable(BigDecimal.valueOf(100), "CZK"),
+            false
+    );
+    public static final SurfaceTypeDetailDto SURFACE_TYPE_2_DTO = new SurfaceTypeDetailDto(
+            SURFACE_TYPE_2_ID,
+            "Grass",
+            PriceSample.CZK_100_DTO,
+            false
+    );
 }

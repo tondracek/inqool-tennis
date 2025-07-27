@@ -15,27 +15,27 @@ public class CourtRepositoryImpl implements CourtRepository {
     private final CourtDao dao;
     private final CourtEntityMapper mapper;
 
-    public CourtRepositoryImpl(CourtDao courtDao, CourtEntityMapper mapper) {
+    public CourtRepositoryImpl(CourtDao courtDao, CourtEntityMapper courtEntityMapper) {
         this.dao = courtDao;
-        this.mapper = mapper;
+        this.mapper = courtEntityMapper;
     }
 
     @NotNull
     @Override
-    public Court create(Court entity) {
-        CourtEntity courtEntity = mapper.toEntity(entity);
-
+    public Court create(Court court) {
+        CourtEntity courtEntity = mapper.toEntity(court);
         dao.save(courtEntity);
-        return mapper.toModel(courtEntity);
+
+        return court;
     }
 
     @NotNull
     @Override
-    public Court update(Court entity) {
-        CourtEntity courtEntity = mapper.toEntity(entity);
-
+    public Court update(Court court) {
+        CourtEntity courtEntity = mapper.toEntity(court);
         dao.update(courtEntity);
-        return mapper.toModel(courtEntity);
+
+        return court;
     }
 
     @NotNull
