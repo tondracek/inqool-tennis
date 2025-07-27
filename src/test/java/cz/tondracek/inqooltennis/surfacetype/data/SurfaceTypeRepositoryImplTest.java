@@ -1,7 +1,5 @@
 package cz.tondracek.inqooltennis.surfacetype.data;
 
-import cz.tondracek.inqooltennis.common.price.data.PriceEmbeddable;
-import cz.tondracek.inqooltennis.common.price.model.Price;
 import cz.tondracek.inqooltennis.core.exception.NotFoundException;
 import cz.tondracek.inqooltennis.surfacetype.mapper.SurfaceTypeEntityMapper;
 import cz.tondracek.inqooltennis.surfacetype.model.SurfaceType;
@@ -11,11 +9,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static cz.tondracek.inqooltennis.surfacetype.SurfaceTypeSample.SURFACE_TYPE;
+import static cz.tondracek.inqooltennis.surfacetype.SurfaceTypeSample.SURFACE_TYPE_ENTITY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -32,65 +31,52 @@ class SurfaceTypeRepositoryImplTest {
     @InjectMocks
     private SurfaceTypeRepositoryImpl repository;
 
-
-    UUID sampleId = UUID.randomUUID();
-    SurfaceType sampleSurfaceType = new SurfaceType(
-            sampleId,
-            "Clay",
-            new Price(BigDecimal.valueOf(1f), "CZK"),
-            false
-    );
-    SurfaceTypeEntity sampleSurfaceTypeEntity = new SurfaceTypeEntity(
-            sampleId,
-            "Clay",
-            new PriceEmbeddable(BigDecimal.valueOf(1f), "CZK"),
-            false
-    );
-
     @Test
     void create() {
-        when(mapper.toEntity(sampleSurfaceType)).thenReturn(sampleSurfaceTypeEntity);
+        when(mapper.toEntity(SURFACE_TYPE)).thenReturn(SURFACE_TYPE_ENTITY);
 
-        SurfaceType result = repository.create(sampleSurfaceType);
+        SurfaceType result = repository.create(SURFACE_TYPE);
 
-        assertEquals(sampleSurfaceType, result);
+        assertEquals(SURFACE_TYPE, result);
     }
 
     @Test
     void update() {
-        when(mapper.toEntity(sampleSurfaceType)).thenReturn(sampleSurfaceTypeEntity);
+        when(mapper.toEntity(SURFACE_TYPE)).thenReturn(SURFACE_TYPE_ENTITY);
 
-        SurfaceType result = repository.update(sampleSurfaceType);
+        SurfaceType result = repository.update(SURFACE_TYPE);
 
-        assertEquals(sampleSurfaceType, result);
+        assertEquals(SURFACE_TYPE, result);
     }
 
     @Test
     void findById_shouldReturnCorrectly() {
-        when(dao.findById(any(UUID.class))).thenReturn(Optional.of(sampleSurfaceTypeEntity));
-        when(mapper.toModel(sampleSurfaceTypeEntity)).thenReturn(sampleSurfaceType);
+        when(dao.findById(SURFACE_TYPE_ENTITY.getId())).thenReturn(Optional.of(SURFACE_TYPE_ENTITY));
+        when(mapper.toModel(SURFACE_TYPE_ENTITY)).thenReturn(SURFACE_TYPE);
 
-        SurfaceType result = repository.findById(sampleId);
-        assertEquals(sampleSurfaceType, result);
+        SurfaceType result = repository.findById(SURFACE_TYPE_ENTITY.getId());
+        assertEquals(SURFACE_TYPE, result);
     }
 
     @Test
     void findById_shouldFailOnNotFound() {
         when(dao.findById(any(UUID.class))).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> repository.findById(sampleId));
+        assertThrows(NotFoundException.class, () -> repository.findById(SURFACE_TYPE_ENTITY.getId()));
     }
 
     @Test
     void findAllActive() {
-        when(dao.findAllActive()).thenReturn(List.of(sampleSurfaceTypeEntity, sampleSurfaceTypeEntity, sampleSurfaceTypeEntity));
-        when(mapper.toModel(sampleSurfaceTypeEntity)).thenReturn(sampleSurfaceType);
+        List<SurfaceTypeEntity> entities = List.of(SURFACE_TYPE_ENTITY, SURFACE_TYPE_ENTITY, SURFACE_TYPE_ENTITY);
+
+        when(dao.findAllActive()).thenReturn(entities);
+        when(mapper.toModel(SURFACE_TYPE_ENTITY)).thenReturn(SURFACE_TYPE);
 
         var result = repository.findAllActive();
 
         assertEquals(3, result.size());
         for (SurfaceType surfaceType : result) {
-            assertEquals(sampleSurfaceType, surfaceType);
+            assertEquals(SURFACE_TYPE, surfaceType);
         }
     }
 }

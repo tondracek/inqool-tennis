@@ -13,10 +13,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static cz.tondracek.inqooltennis.surfacetype.SurfaceTypeSample.SURFACE_TYPE_ENTITY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @Import(SurfaceTypeDaoImpl.class)
@@ -28,69 +28,52 @@ class SurfaceTypeDaoImplTest {
     @Autowired
     TestEntityManager entityManager;
 
-    private final UUID sampleId = UUID.randomUUID();
-    private final SurfaceTypeEntity sampleSurfaceTypeEntity = new SurfaceTypeEntity(
-            sampleId,
-            "Clay",
-            new PriceEmbeddable(BigDecimal.valueOf(1f), "CZK"),
-            false
-    );
-    private final SurfaceTypeEntity deletedEntity = new SurfaceTypeEntity(
-            UUID.randomUUID(),
-            "Inactive Surface",
-            new PriceEmbeddable(BigDecimal.valueOf(2f), "CZK"),
-            true
-    );
-
     @Test
     void save() {
-        surfaceTypeDao.save(sampleSurfaceTypeEntity);
+        surfaceTypeDao.save(SURFACE_TYPE_ENTITY);
 
-        SurfaceTypeEntity result = entityManager.find(SurfaceTypeEntity.class, sampleId);
+        SurfaceTypeEntity result = entityManager.find(SurfaceTypeEntity.class, SURFACE_TYPE_ENTITY.getId());
 
         assertNotNull(result);
-        assertEquals(sampleSurfaceTypeEntity, result);
+        assertEquals(SURFACE_TYPE_ENTITY, result);
     }
 
     @Test
     void update() {
-        surfaceTypeDao.save(sampleSurfaceTypeEntity);
+        surfaceTypeDao.save(SURFACE_TYPE_ENTITY);
 
         PriceEmbeddable updatedPrice = new PriceEmbeddable(BigDecimal.valueOf(123456789f), "UPDATED CZK");
         SurfaceTypeEntity update = new SurfaceTypeEntity(
-                sampleId,
+                SURFACE_TYPE_ENTITY.getId(),
                 "Updated Clay",
                 updatedPrice,
                 true
         );
         surfaceTypeDao.update(update);
 
-        SurfaceTypeEntity result = entityManager.find(SurfaceTypeEntity.class, sampleId);
+        SurfaceTypeEntity result = entityManager.find(SurfaceTypeEntity.class, SURFACE_TYPE_ENTITY.getId());
 
         assertNotNull(result);
-
-        assertEquals("Updated Clay", result.getName());
-        assertEquals(updatedPrice, result.getPricePerMinute());
-        assertTrue(result.isDeleted());
+        assertEquals(update, result);
     }
 
     @Test
     void findById() {
-        entityManager.persist(sampleSurfaceTypeEntity);
+        entityManager.persist(SURFACE_TYPE_ENTITY);
 
-        SurfaceTypeEntity result = surfaceTypeDao.findById(sampleId).orElse(null);
+        SurfaceTypeEntity result = surfaceTypeDao.findById(SURFACE_TYPE_ENTITY.getId()).orElse(null);
 
-        assertNotNull(result);
-        assertEquals(sampleSurfaceTypeEntity, result);
+        assertEquals(SURFACE_TYPE_ENTITY, result);
     }
 
     @Test
     void findAllActive() {
         Map<UUID, SurfaceTypeEntity> entities = Stream.of(
-                generateSampleEntity(),
-                generateSampleEntity(),
-                generateSampleEntity(),
-                deletedEntity
+                generateSampleEntity(false),
+                generateSampleEntity(false),
+                generateSampleEntity(false),
+                generateSampleEntity(true),
+                generateSampleEntity(true)
         ).collect(Collectors.toMap(SurfaceTypeEntity::getId, entity -> entity));
 
         for (SurfaceTypeEntity entity : entities.values()) {
@@ -110,12 +93,12 @@ class SurfaceTypeDaoImplTest {
         }
     }
 
-    private SurfaceTypeEntity generateSampleEntity() {
+    private SurfaceTypeEntity generateSampleEntity(boolean deleted) {
         return new SurfaceTypeEntity(
                 UUID.randomUUID(),
                 "Sample Surface",
                 new PriceEmbeddable(BigDecimal.valueOf(10.0), "USD"),
-                false
+                deleted
         );
     }
 }
