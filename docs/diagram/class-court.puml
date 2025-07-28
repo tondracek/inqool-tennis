@@ -36,7 +36,7 @@ package "Court" {
 		class CourtService {
 			+ createCourt(createDto: CreateCourtDto): CourtDetailDto
 			+ updateCourt(id: UUID, updateDto: UpdateCourtDto): CourtDetailDto
-			+ softDeleteCourt(id: UUID): boolean
+			+ softDeleteCourt(id: UUID): void
 			+ getCourtById(id: UUID): CourtDetailDto
 			+ getAllCourts(): List<CourtDetailDto>
 		}
@@ -46,7 +46,7 @@ package "Court" {
 		class CourtController {
 			+ createCourt(createDto: CreateCourtDto): CourtDetailDto
 			+ updateCourt(id: UUID, updateDto: UpdateCourtDto): CourtDetailDto
-			+ deleteCourt(id: UUID): boolean
+			+ deleteCourt(id: UUID): void
 			+ getCourtById(id: UUID): CourtDetailDto
 			+ getAllCourts(): List<CourtDetailDto>
 		}

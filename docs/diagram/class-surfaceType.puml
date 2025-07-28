@@ -37,7 +37,7 @@ package "SurfaceType" {
 			+ createSurfaceType(dto: CreateSurfaceTypeDto): SurfaceTypeDetailDto
 			+ updateSurfaceType(id: UUID, dto: UpdateSurfaceTypeDto): SurfaceTypeDetailDto
 			+ getAllSurfaceTypes(): List<SurfaceTypeDetailDto>
-			+ deleteSurfaceType(id: UUID): void
+			+ softDeleteSurfaceType(id: UUID): void
 		}
 	}
 

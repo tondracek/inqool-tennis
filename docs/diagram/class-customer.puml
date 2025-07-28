@@ -35,7 +35,7 @@ package "Customer" {
 		class CustomerService {
 			+ createCustomer(createDto: CreateCustomerDto): CustomerDetailDto
 			+ updateCustomer(id: UUID, updateDto: UpdateCustomerDto): CustomerDetailDto
-			+ deleteCustomer(id: UUID): boolean
+			+ softDeleteCustomer(id: UUID): void
 			+ getAllCustomers(): List<CustomerDetailDto>
 		}
 	}
@@ -44,7 +44,7 @@ package "Customer" {
 		class CustomerController {
 			+ createCustomer(createDto: CreateCustomerDto): CustomerDetailDto
 			+ updateCustomer(id: UUID, updateDto: UpdateCustomerDto): CustomerDetailDto
-			+ deleteCustomer(id: UUID): boolean
+			+ deleteCustomer(id: UUID): void
 			+ getAllCustomers(): List<CustomerDetailDto>
 		}
 	}

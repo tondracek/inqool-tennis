@@ -42,7 +42,7 @@ package "User" {
 		class UserService {
 			+ createUser(createDto: CreateUserDto): UserDetailDto
 			+ updateUser(id: UUID, updateDto: UpdateUserDto): UserDetailDto
-			+ deleteUser(id: UUID): boolean
+			+ softDeleteUser(id: UUID): boolean
 			+ getAllUsers(): List<UserDetailDto>
 		}
 	}

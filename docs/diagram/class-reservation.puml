@@ -76,7 +76,7 @@ package "Reservation" {
     class ReservationService {
 	    + createReservation(createDto: CreateReservationDto): ReservationDetailDto
 	    + updateReservation(id: UUID, updateDto: UpdateReservationDto): ReservationDetailDto
-	    + deleteReservation(id: UUID): boolean
+	    + softDeleteReservation(id: UUID): void
 	    + getReservationById(id: UUID): ReservationDetailDto
 	    + getAllReservations(filter: ReservationsFilter): List<ReservationDetailDto>
 	  }
@@ -86,7 +86,7 @@ package "Reservation" {
     class ReservationController {
 	    + createReservation(createDto: CreateReservationDto): ReservationDetailDto
 	    + updateReservation(id: UUID, updateDto: UpdateReservationDto): ReservationDetailDto
-	    + deleteReservation(id: UUID): boolean
+	    + deleteReservation(id: UUID): void
 	    + getReservationById(id: UUID): ReservationDetailDto
 	    + getAllReservations(): List<ReservationDetailDto>
 
