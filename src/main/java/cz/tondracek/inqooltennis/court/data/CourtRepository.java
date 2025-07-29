@@ -1,23 +1,44 @@
 package cz.tondracek.inqooltennis.court.data;
 
+import cz.tondracek.inqooltennis.core.exception.NotFoundException;
 import cz.tondracek.inqooltennis.court.model.Court;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CourtRepository {
 
-    @NotNull Court create(Court entity);
-
-    @NotNull Court update(Court entity);
+    /**
+     * @param court the court to be created
+     * @return the created court
+     */
+    Court create(Court court);
 
     /**
-     * Can return court with deleted=true
+     * @param court the court to be updated
+     * @return the updated court
+     * @throws NotFoundException if the customer with the given ID does not exist
      */
-    @NotNull Court findById(UUID id);
+    Court update(Court court);
 
-    @NotNull Court findActiveById(UUID id);
+    /**
+     * ⚠️ Can return court with deleted=true
+     *
+     * @param id the UUID of the court to find
+     * @return the court with the given ID, if it exists
+     * @throws NotFoundException if the customer with the given ID does not exist
+     */
+    Court findById(UUID id);
 
+    /**
+     * @param id the UUID of the court to find
+     * @return the non-deleted court with the given ID, if it exists
+     * @throws NotFoundException if the customer with the given ID does not exist
+     */
+    Court findActiveById(UUID id);
+
+    /**
+     * @return a list of all non-deleted courts
+     */
     List<Court> findAllActive();
 }

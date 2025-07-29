@@ -17,10 +17,10 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 
     public ReservationRepositoryImpl(
             ReservationDao dao,
-            ReservationEntityMapper mapper
+            ReservationEntityMapper reservationEntityMapper
     ) {
         this.dao = dao;
-        this.mapper = mapper;
+        this.mapper = reservationEntityMapper;
     }
 
     @Override

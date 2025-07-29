@@ -5,22 +5,23 @@ import cz.tondracek.inqooltennis.common.gametype.model.GameType;
 import cz.tondracek.inqooltennis.common.price.data.PriceEmbeddable;
 import cz.tondracek.inqooltennis.court.data.CourtEntity;
 import cz.tondracek.inqooltennis.customer.data.CustomerEntity;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Data
+@SuperBuilder
+@Getter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ReservationEntity extends BaseDeletableEntity {
@@ -28,7 +29,7 @@ public class ReservationEntity extends BaseDeletableEntity {
     @ManyToOne(optional = false)
     private CourtEntity court;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     private CustomerEntity customer;
 
     @Column(nullable = false)

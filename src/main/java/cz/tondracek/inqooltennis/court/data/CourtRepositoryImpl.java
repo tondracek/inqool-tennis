@@ -3,7 +3,6 @@ package cz.tondracek.inqooltennis.court.data;
 import cz.tondracek.inqooltennis.core.exception.NotFoundException;
 import cz.tondracek.inqooltennis.court.mapper.CourtEntityMapper;
 import cz.tondracek.inqooltennis.court.model.Court;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,7 +19,6 @@ public class CourtRepositoryImpl implements CourtRepository {
         this.mapper = courtEntityMapper;
     }
 
-    @NotNull
     @Override
     public Court create(Court court) {
         CourtEntity courtEntity = mapper.toEntity(court);
@@ -29,7 +27,6 @@ public class CourtRepositoryImpl implements CourtRepository {
         return court;
     }
 
-    @NotNull
     @Override
     public Court update(Court court) {
         CourtEntity courtEntity = mapper.toEntity(court);
@@ -38,19 +35,16 @@ public class CourtRepositoryImpl implements CourtRepository {
         return court;
     }
 
-    @NotNull
     @Override
     public Court findById(UUID id) {
-        CourtEntity courtEntity = dao.findById(id).orElseThrow(NotFoundException::new);
-        return mapper.toModel(courtEntity);
+        return dao.findById(id).map(mapper::toModel)
+                .orElseThrow(NotFoundException::new);
     }
 
-    @NotNull
     @Override
     public Court findActiveById(UUID id) {
-        CourtEntity courtEntity = dao.findActiveById(id)
+        return dao.findActiveById(id).map(mapper::toModel)
                 .orElseThrow(NotFoundException::new);
-        return mapper.toModel(courtEntity);
     }
 
     @Override

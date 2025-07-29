@@ -4,15 +4,17 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @MappedSuperclass
-@Data
+@Getter
+@SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode()
 public abstract class BaseDeletableEntity {

@@ -4,6 +4,7 @@ import cz.tondracek.inqooltennis.common.price.model.Price;
 import cz.tondracek.inqooltennis.court.mapper.CourtMapper;
 import cz.tondracek.inqooltennis.court.model.Court;
 import cz.tondracek.inqooltennis.customer.mapper.CustomerMapper;
+import cz.tondracek.inqooltennis.customer.model.Customer;
 import cz.tondracek.inqooltennis.reservation.dto.CreateReservationDto;
 import cz.tondracek.inqooltennis.reservation.dto.ReservationDetailDto;
 import cz.tondracek.inqooltennis.reservation.dto.ReservationPreviewDto;
@@ -16,11 +17,10 @@ import org.mapstruct.Mapping;
 public interface ReservationMapper {
 
     @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID())")
-    @Mapping(target = "customer", source = "create.")
     @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "deleted", constant = "false")
     @Mapping(target = "withDeleted", ignore = true)
-    Reservation toReservation(CreateReservationDto create, Price price, Court court);
+    Reservation toReservation(CreateReservationDto create, Customer customer, Price price, Court court);
 
     @Mapping(target = "id", source = "original.id")
     @Mapping(target = "court", source = "court")

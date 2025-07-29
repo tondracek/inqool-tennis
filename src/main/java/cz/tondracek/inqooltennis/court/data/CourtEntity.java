@@ -7,14 +7,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@SuperBuilder
 @NoArgsConstructor()
 @EqualsAndHashCode(callSuper = true)
 public class CourtEntity extends BaseDeletableEntity {
