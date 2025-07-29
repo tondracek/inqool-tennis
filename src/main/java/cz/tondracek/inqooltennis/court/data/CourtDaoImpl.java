@@ -1,6 +1,7 @@
 package cz.tondracek.inqooltennis.court.data;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,19 @@ public class CourtDaoImpl implements CourtDao {
     public Optional<CourtEntity> findById(UUID id) {
         CourtEntity entity = entityManager.find(CourtEntity.class, id);
         return Optional.ofNullable(entity);
+    }
+
+    @Override
+    public Optional<CourtEntity> findActiveById(UUID id) {
+        try {
+            CourtEntity entity = entityManager
+                    .createQuery("SELECT c FROM CourtEntity c WHERE c.id = :id AND c.deleted = false", CourtEntity.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+            return Optional.ofNullable(entity);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

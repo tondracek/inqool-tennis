@@ -12,5 +12,7 @@ public interface CourtDao {
 
     Optional<CourtEntity> findById(UUID id);
 
+    Optional<CourtEntity> findActiveById(UUID id);
+
     List<CourtEntity> findAllActive();
 }

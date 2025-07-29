@@ -79,6 +79,12 @@ public class CourtSample {
             SURFACE_TYPE_2_ENTITY,
             false
     );
+    public static final CourtEntity COURT_2_DELETED_ENTITY = new CourtEntity(
+            COURT_2_ID,
+            "Court 2",
+            SURFACE_TYPE_2_ENTITY,
+            true
+    );
     public static final CourtDetailDto COURT_2_DTO = new CourtDetailDto(
             COURT_2_ID,
             "Court 2",

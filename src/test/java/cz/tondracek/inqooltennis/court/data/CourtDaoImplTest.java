@@ -7,8 +7,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+import static cz.tondracek.inqooltennis.court.CourtSample.COURT_2_DELETED_ENTITY;
 import static cz.tondracek.inqooltennis.court.CourtSample.COURT_ENTITY;
 import static cz.tondracek.inqooltennis.court.CourtSample.UPDATED_COURT_ENTITY;
 import static cz.tondracek.inqooltennis.surfacetype.SurfaceTypeSample.SURFACE_TYPE_ENTITY;
@@ -31,6 +33,7 @@ class CourtDaoImplTest {
         courtDao.save(COURT_ENTITY);
         CourtEntity result = entityManager.find(CourtEntity.class, COURT_ENTITY.getId());
 
+        System.out.println("Saved CourtEntity: " + COURT_ENTITY);
         assertEquals(COURT_ENTITY, result);
     }
 
@@ -55,6 +58,32 @@ class CourtDaoImplTest {
         CourtEntity result = courtDao.findById(COURT_ENTITY.getId()).orElseThrow();
 
         assertEquals(COURT_ENTITY, result);
+    }
+
+    @Test
+    void findActiveById() {
+        entityManager.persist(COURT_ENTITY.getSurfaceType());
+        entityManager.persist(COURT_ENTITY);
+
+        entityManager.persist(COURT_2_DELETED_ENTITY.getSurfaceType());
+        entityManager.persist(COURT_2_DELETED_ENTITY);
+
+        CourtEntity result = courtDao.findActiveById(COURT_ENTITY.getId()).orElseThrow();
+
+        assertEquals(COURT_ENTITY, result);
+    }
+
+    @Test
+    void findActiveById_shouldNotReturnDeleted() {
+        entityManager.persist(COURT_ENTITY.getSurfaceType());
+        entityManager.persist(COURT_ENTITY);
+
+        entityManager.persist(COURT_2_DELETED_ENTITY.getSurfaceType());
+        entityManager.persist(COURT_2_DELETED_ENTITY);
+
+        Optional<CourtEntity> result = courtDao.findActiveById(COURT_2_DELETED_ENTITY.getId());
+
+        assertTrue(result.isEmpty(), "Deleted court should not be found as active");
     }
 
     @Test

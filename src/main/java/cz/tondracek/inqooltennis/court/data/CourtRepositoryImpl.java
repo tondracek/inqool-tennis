@@ -45,6 +45,14 @@ public class CourtRepositoryImpl implements CourtRepository {
         return mapper.toModel(courtEntity);
     }
 
+    @NotNull
+    @Override
+    public Court findActiveById(UUID id) {
+        CourtEntity courtEntity = dao.findActiveById(id)
+                .orElseThrow(NotFoundException::new);
+        return mapper.toModel(courtEntity);
+    }
+
     @Override
     public List<Court> findAllActive() {
         return dao.findAllActive()

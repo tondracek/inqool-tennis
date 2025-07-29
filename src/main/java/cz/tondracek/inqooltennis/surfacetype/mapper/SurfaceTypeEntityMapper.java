@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {PriceEmbeddableMapper.class})
 public interface SurfaceTypeEntityMapper {
 
+    @Mapping(target = "createdAt", ignore = true)
     SurfaceTypeEntity toEntity(SurfaceType model);
 
     @Mapping(target = "withDeleted", ignore = true)

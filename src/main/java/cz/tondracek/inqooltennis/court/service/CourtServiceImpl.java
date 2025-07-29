@@ -10,6 +10,7 @@ import cz.tondracek.inqooltennis.court.model.Court;
 import cz.tondracek.inqooltennis.surfacetype.data.SurfaceTypeRepository;
 import cz.tondracek.inqooltennis.surfacetype.model.SurfaceType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,6 +33,7 @@ public class CourtServiceImpl implements CourtService {
         this.mapper = courtMapper;
     }
 
+    @Transactional
     @Override
     public CourtDetailDto createCourt(CreateCourtDto dto) {
         UUID id = UUID.randomUUID();
@@ -43,6 +45,7 @@ public class CourtServiceImpl implements CourtService {
         return mapper.toDetailDto(result);
     }
 
+    @Transactional
     @Override
     public CourtDetailDto updateCourt(UUID id, UpdateCourtDto dto) {
         Court original = repository.findById(id);
@@ -55,6 +58,7 @@ public class CourtServiceImpl implements CourtService {
         return mapper.toDetailDto(result);
     }
 
+    @Transactional
     @Override
     public void softDeleteCourt(UUID id) {
         Court original = repository.findById(id);
@@ -63,12 +67,14 @@ public class CourtServiceImpl implements CourtService {
         repository.update(updated);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public CourtDetailDto getCourtById(UUID id) {
         Court court = repository.findById(id);
         return mapper.toDetailDto(court);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CourtDetailDto> getAllCourts() {
         return repository.findAllActive()

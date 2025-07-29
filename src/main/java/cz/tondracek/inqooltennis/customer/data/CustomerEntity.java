@@ -1,13 +1,11 @@
-package cz.tondracek.inqooltennis.surfacetype.data;
+package cz.tondracek.inqooltennis.customer.data;
+
 
 import cz.tondracek.inqooltennis.common.baseentity.data.BaseDeletableEntity;
-import cz.tondracek.inqooltennis.common.price.data.PriceEmbeddable;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
@@ -16,17 +14,17 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class SurfaceTypeEntity extends BaseDeletableEntity {
+public class CustomerEntity extends BaseDeletableEntity {
 
     @Column(nullable = false)
     private String name;
 
-    @Embedded
-    private PriceEmbeddable pricePerMinute;
+    @Column(nullable = false)
+    private String phoneNumber;
 
-    public SurfaceTypeEntity(UUID id, String name, PriceEmbeddable pricePerMinute, boolean deleted) {
+    public CustomerEntity(UUID id, String name, String phoneNumber, boolean deleted) {
         super(id, deleted);
         this.name = name;
-        this.pricePerMinute = pricePerMinute;
+        this.phoneNumber = phoneNumber;
     }
 }

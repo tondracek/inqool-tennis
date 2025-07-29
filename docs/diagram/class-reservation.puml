@@ -21,12 +21,6 @@ package "Reservation" {
       SINGLES
       DOUBLES
     }
-
-    class ReservationsFilter {
-    	- courtId: UUID
-    	- phoneNumber: String
-    	- onlyFuture: boolean
-    }
   }
 
   package "dto" {
@@ -78,7 +72,10 @@ package "Reservation" {
 	    + updateReservation(id: UUID, updateDto: UpdateReservationDto): ReservationDetailDto
 	    + softDeleteReservation(id: UUID): void
 	    + getReservationById(id: UUID): ReservationDetailDto
-	    + getAllReservations(filter: ReservationsFilter): List<ReservationDetailDto>
+	    + getAllReservations(): List<ReservationDetailDto>
+
+	    + getCourtReservations(courtId: UUID): CourtReservationListDto
+	    + getReservationsByPhoneNumber(phoneNumber: String, onlyFuture: boolean): List<ReservationPreviewDto>
 	  }
   }
 

@@ -17,6 +17,7 @@ import java.util.UUID;
 import static cz.tondracek.inqooltennis.court.CourtSample.COURT;
 import static cz.tondracek.inqooltennis.court.CourtSample.COURT_2;
 import static cz.tondracek.inqooltennis.court.CourtSample.COURT_2_ENTITY;
+import static cz.tondracek.inqooltennis.court.CourtSample.COURT_DELETED;
 import static cz.tondracek.inqooltennis.court.CourtSample.COURT_ENTITY;
 import static cz.tondracek.inqooltennis.court.CourtSample.UPDATED_COURT;
 import static cz.tondracek.inqooltennis.court.CourtSample.UPDATED_COURT_ENTITY;
@@ -71,6 +72,23 @@ class CourtRepositoryImplTest {
         when(dao.findById(any(UUID.class))).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> repository.findById(UUID.randomUUID()));
+    }
+
+    @Test
+    void findActiveById() {
+        when(dao.findActiveById(COURT.getId())).thenReturn(Optional.of(COURT_ENTITY));
+        when(mapper.toModel(COURT_ENTITY)).thenReturn(COURT);
+
+        Court result = repository.findActiveById(COURT.getId());
+
+        assertEquals(COURT, result);
+    }
+
+    @Test
+    void findActiveById_shouldFailOnNotFound() {
+        when(dao.findActiveById(COURT_DELETED.getId())).thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class, () -> repository.findActiveById(COURT_DELETED.getId()));
     }
 
     @Test

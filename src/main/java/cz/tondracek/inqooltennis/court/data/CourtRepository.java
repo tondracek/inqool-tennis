@@ -17,5 +17,7 @@ public interface CourtRepository {
      */
     @NotNull Court findById(UUID id);
 
+    @NotNull Court findActiveById(UUID id);
+
     List<Court> findAllActive();
 }

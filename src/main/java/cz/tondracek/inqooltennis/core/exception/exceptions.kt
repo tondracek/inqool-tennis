@@ -15,5 +15,5 @@ import org.springframework.web.bind.annotation.ResponseStatus
 @ResponseStatus(HttpStatus.NOT_FOUND) // 404
 class NotFoundException(message: String = "Resource not found") : RuntimeException(message)
 
-//@ResponseStatus(HttpStatus.CONFLICT) // 409
-//class ConflictException(message: String = "Conflict") : RuntimeException(message)
+@ResponseStatus(HttpStatus.CONFLICT) // 409
+class ConflictException(message: String = "Conflict") : RuntimeException(message)

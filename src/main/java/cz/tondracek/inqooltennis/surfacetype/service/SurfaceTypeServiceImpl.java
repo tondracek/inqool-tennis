@@ -8,6 +8,7 @@ import cz.tondracek.inqooltennis.surfacetype.dto.UpdateSurfaceTypeDto;
 import cz.tondracek.inqooltennis.surfacetype.mapper.SurfaceTypeMapper;
 import cz.tondracek.inqooltennis.surfacetype.model.SurfaceType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +28,7 @@ public class SurfaceTypeServiceImpl implements SurfaceTypeService {
         this.mapper = surfaceTypeMapper;
     }
 
+    @Transactional
     @Override
     public SurfaceTypeDetailDto createSurfaceType(CreateSurfaceTypeDto dto) {
         UUID id = UUID.randomUUID();
@@ -36,6 +38,7 @@ public class SurfaceTypeServiceImpl implements SurfaceTypeService {
         return mapper.toDetailDto(result);
     }
 
+    @Transactional
     @Override
     public SurfaceTypeDetailDto updateSurfaceType(UUID id, UpdateSurfaceTypeDto dto) {
         SurfaceType original = repository.findById(id);
@@ -47,6 +50,7 @@ public class SurfaceTypeServiceImpl implements SurfaceTypeService {
         return mapper.toDetailDto(result);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<SurfaceTypeDetailDto> getAllSurfaceTypes() {
         return repository.findAllActive()
@@ -55,6 +59,7 @@ public class SurfaceTypeServiceImpl implements SurfaceTypeService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public void softDeleteSurfaceType(UUID id) {
         SurfaceType original = repository.findById(id);
