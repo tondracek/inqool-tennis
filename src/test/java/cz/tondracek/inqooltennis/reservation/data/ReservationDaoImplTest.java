@@ -104,7 +104,7 @@ class ReservationDaoTest {
         List<ReservationEntity> results = reservationDao.findActiveByCourtId(RESERVATION_2030_ENTITY.getCourt().getId());
 
         assertEquals(1, results.size());
-        assertEquals(RESERVATION_2030_ENTITY.getId(), results.get(0).getId());
+        assertEquals(RESERVATION_2030_ENTITY.getId(), results.getFirst().getId());
         assertTrue(results.stream().noneMatch(ReservationEntity::isDeleted));
     }
 
@@ -116,7 +116,7 @@ class ReservationDaoTest {
         List<ReservationEntity> results = reservationDao.findActiveByPhoneNumber(RESERVATION_ENTITY.getCustomer().getPhoneNumber());
 
         assertEquals(1, results.size());
-        assertEquals(RESERVATION_ENTITY.getId(), results.get(0).getId());
+        assertEquals(RESERVATION_ENTITY.getId(), results.getFirst().getId());
         assertTrue(results.stream().noneMatch(ReservationEntity::isDeleted));
     }
 
@@ -128,8 +128,8 @@ class ReservationDaoTest {
         List<ReservationEntity> results = reservationDao.findActiveFutureByPhoneNumber(RESERVATION_2030_ENTITY.getCustomer().getPhoneNumber());
 
         assertEquals(1, results.size());
-        assertEquals(RESERVATION_2030_ENTITY.getId(), results.get(0).getId());
+        assertEquals(RESERVATION_2030_ENTITY.getId(), results.getFirst().getId());
         assertTrue(results.stream().noneMatch(ReservationEntity::isDeleted));
-        assertTrue(results.get(0).getStartTime().isAfter(java.time.LocalDateTime.now()));
+        assertTrue(results.getFirst().getStartTime().isAfter(java.time.LocalDateTime.now()));
     }
 }
