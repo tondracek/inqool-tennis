@@ -4,8 +4,8 @@ import java.util.UUID;
 
 public record CustomerDetailDto(
         UUID id,
-        String phoneNumber,
         String name,
+        String phoneNumber,
         boolean deleted
 ) {
 }

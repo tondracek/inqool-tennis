@@ -76,9 +76,7 @@ class SurfaceTypeDaoImplTest {
                 generateSampleEntity(true)
         ).collect(Collectors.toMap(SurfaceTypeEntity::getId, entity -> entity));
 
-        for (SurfaceTypeEntity entity : entities.values()) {
-            entityManager.persist(entity);
-        }
+        entities.values().forEach(entity -> entityManager.persist(entity));
 
         var result = surfaceTypeDao.findAllActive();
 

@@ -13,7 +13,7 @@ public record CreateReservationDto(
         @NotNull @Future LocalDateTime startTime,
         @NotNull @Future LocalDateTime endTime,
         @NotNull GameType gameType,
-        @NotBlank String customerPhoneNumber,
-        @NotBlank String customerName
+        @NotBlank String customerName,
+        @NotBlank String customerPhoneNumber
 ) {
 }

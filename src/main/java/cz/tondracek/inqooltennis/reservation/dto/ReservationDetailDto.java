@@ -14,8 +14,8 @@ public record ReservationDetailDto(
         CustomerDetailDto customerDetailDto,
         LocalDateTime startTime,
         LocalDateTime endTime,
-        GameType gameType,
         PriceDto price,
+        GameType gameType,
         boolean deleted,
         LocalDateTime createdAt
 ) {

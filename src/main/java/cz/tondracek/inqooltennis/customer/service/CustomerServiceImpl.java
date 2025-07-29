@@ -1,13 +1,13 @@
 package cz.tondracek.inqooltennis.customer.service;
 
 import cz.tondracek.inqooltennis.core.exception.ConflictException;
+import cz.tondracek.inqooltennis.core.exception.NotFoundException;
 import cz.tondracek.inqooltennis.customer.data.CustomerRepository;
 import cz.tondracek.inqooltennis.customer.dto.CreateCustomerDto;
 import cz.tondracek.inqooltennis.customer.dto.CustomerDetailDto;
 import cz.tondracek.inqooltennis.customer.dto.UpdateCustomerDto;
 import cz.tondracek.inqooltennis.customer.mapper.CustomerMapper;
 import cz.tondracek.inqooltennis.customer.model.Customer;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,14 +31,19 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public CustomerDetailDto createCustomer(CreateCustomerDto createDto) {
-        Customer customer = mapper.toCustomer(createDto, UUID.randomUUID());
+        Customer newCustomer = mapper.toCustomer(createDto, UUID.randomUUID());
 
+        Customer userWithPhoneNumber;
         try {
-            repository.create(customer);
-        } catch (ConstraintViolationException e) {
-            throw new ConflictException(e.getMessage());
+            userWithPhoneNumber = repository.findByPhoneNumber(newCustomer.getPhoneNumber());
+        } catch (NotFoundException e) {
+            userWithPhoneNumber = null;
         }
-        return mapper.toDetailDto(customer);
+        if (userWithPhoneNumber != null)
+            throw new ConflictException("Customer with this phone number already exists.");
+
+        repository.create(newCustomer);
+        return mapper.toDetailDto(newCustomer);
     }
 
     @Transactional
@@ -47,11 +52,16 @@ public class CustomerServiceImpl implements CustomerService {
         Customer original = repository.findById(id);
         Customer updated = mapper.toCustomer(updateDto, original);
 
+        Customer userWithPhoneNumber;
         try {
-            repository.update(updated);
-        } catch (ConstraintViolationException e) {
-            throw new ConflictException(e.getMessage());
+            userWithPhoneNumber = repository.findByPhoneNumber(updated.getPhoneNumber());
+        } catch (NotFoundException e) {
+            userWithPhoneNumber = null;
         }
+        if (userWithPhoneNumber != null && !userWithPhoneNumber.getId().equals(id))
+            throw new ConflictException("Customer with this phone number already exists.");
+
+        repository.update(updated);
         return mapper.toDetailDto(updated);
     }
 
@@ -61,11 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer original = repository.findById(id);
         Customer deleted = original.withDeleted(true);
 
-        try {
-            repository.update(deleted);
-        } catch (ConstraintViolationException e) {
-            throw new ConflictException(e.getMessage());
-        }
+        repository.update(deleted);
     }
 
     @Transactional(readOnly = true)

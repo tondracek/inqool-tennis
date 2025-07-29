@@ -1,7 +1,9 @@
 package cz.tondracek.inqooltennis.customer.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record CreateCustomerDto(
-        String phoneNumber,
-        String name
+        @NotBlank String name,
+        @NotBlank String phoneNumber
 ) {
 }

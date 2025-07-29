@@ -25,7 +25,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     public Customer create(Customer customer) {
         CustomerEntity customerEntity = mapper.toEntity(customer);
-        dao.create(customerEntity);
+        dao.save(customerEntity);
 
         return customer;
     }
