@@ -1,6 +1,7 @@
 package cz.tondracek.inqooltennis.reservation.data;
 
 import io.swagger.v3.core.util.Json;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -37,9 +38,16 @@ class ReservationDaoTest {
             entityManager.persist(reservation.getCustomer());
     }
 
+    @BeforeEach
+    void setUp() {
+        saveReservationComponents(RESERVATION_ENTITY);
+        saveReservationComponents(RESERVATION_2030_ENTITY);
+        saveReservationComponents(RESERVATION_2140_DELETED_ENTITY);
+        saveReservationComponents(UPDATED_RESERVATION_ENTITY);
+    }
+
     @Test
     void save() {
-        saveReservationComponents(RESERVATION_ENTITY);
         reservationDao.save(RESERVATION_ENTITY);
 
         var result = entityManager.find(ReservationEntity.class, RESERVATION_ENTITY.getId());
@@ -50,10 +58,7 @@ class ReservationDaoTest {
 
     @Test
     void update() {
-        saveReservationComponents(RESERVATION_ENTITY);
         reservationDao.save(RESERVATION_ENTITY);
-
-        saveReservationComponents(UPDATED_RESERVATION_ENTITY);
         reservationDao.update(UPDATED_RESERVATION_ENTITY);
 
         var result = entityManager.find(ReservationEntity.class, UPDATED_RESERVATION_ENTITY.getId());
@@ -62,7 +67,6 @@ class ReservationDaoTest {
 
     @Test
     void findById() {
-        saveReservationComponents(RESERVATION_ENTITY);
         reservationDao.save(RESERVATION_ENTITY);
 
         Optional<ReservationEntity> found = reservationDao.findById(RESERVATION_ENTITY.getId());
@@ -80,13 +84,8 @@ class ReservationDaoTest {
 
     @Test
     void findAllActive_shouldReturnOnlyNotDeletedReservations() {
-        saveReservationComponents(RESERVATION_ENTITY);
         entityManager.persist(RESERVATION_ENTITY);
-
-        saveReservationComponents(RESERVATION_2030_ENTITY);
         entityManager.persist(RESERVATION_2030_ENTITY);
-
-        saveReservationComponents(RESERVATION_2140_DELETED_ENTITY);
         entityManager.persist(RESERVATION_2140_DELETED_ENTITY);
 
         List<ReservationEntity> activeReservations = reservationDao.findAllActive();
@@ -95,5 +94,42 @@ class ReservationDaoTest {
 
         assertEquals(2, activeReservations.size());
         assertTrue(activeReservations.stream().noneMatch(ReservationEntity::isDeleted));
+    }
+
+    @Test
+    void findActiveByCourtId() {
+        entityManager.persist(RESERVATION_ENTITY);
+        entityManager.persist(RESERVATION_2030_ENTITY);
+
+        List<ReservationEntity> results = reservationDao.findActiveByCourtId(RESERVATION_2030_ENTITY.getCourt().getId());
+
+        assertEquals(1, results.size());
+        assertEquals(RESERVATION_2030_ENTITY.getId(), results.get(0).getId());
+        assertTrue(results.stream().noneMatch(ReservationEntity::isDeleted));
+    }
+
+    @Test
+    void findActiveByPhoneNumber() {
+        entityManager.persist(RESERVATION_ENTITY);
+        entityManager.persist(RESERVATION_2030_ENTITY);
+
+        List<ReservationEntity> results = reservationDao.findActiveByPhoneNumber(RESERVATION_ENTITY.getCustomer().getPhoneNumber());
+
+        assertEquals(1, results.size());
+        assertEquals(RESERVATION_ENTITY.getId(), results.get(0).getId());
+        assertTrue(results.stream().noneMatch(ReservationEntity::isDeleted));
+    }
+
+    @Test
+    void findActiveFutureByPhoneNumber_shouldReturnOnlyFutureReservations() {
+        entityManager.persist(RESERVATION_ENTITY);
+        entityManager.persist(RESERVATION_2030_ENTITY);
+
+        List<ReservationEntity> results = reservationDao.findActiveFutureByPhoneNumber(RESERVATION_2030_ENTITY.getCustomer().getPhoneNumber());
+
+        assertEquals(1, results.size());
+        assertEquals(RESERVATION_2030_ENTITY.getId(), results.get(0).getId());
+        assertTrue(results.stream().noneMatch(ReservationEntity::isDeleted));
+        assertTrue(results.get(0).getStartTime().isAfter(java.time.LocalDateTime.now()));
     }
 }
