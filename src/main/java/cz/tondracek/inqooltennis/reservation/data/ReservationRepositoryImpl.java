@@ -42,7 +42,8 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     @NotNull
     @Override
     public Reservation findById(UUID id) {
-        ReservationEntity entity = dao.findById(id).orElseThrow(NotFoundException::new);
+        ReservationEntity entity = dao.findById(id)
+                .orElseThrow(() -> new NotFoundException("Reservation not found; id: " + id));
         return mapper.toModel(entity);
     }
 

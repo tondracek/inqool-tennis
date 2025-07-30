@@ -38,13 +38,13 @@ public class CourtRepositoryImpl implements CourtRepository {
     @Override
     public Court findById(UUID id) {
         return dao.findById(id).map(mapper::toModel)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Court not found; id: " + id));
     }
 
     @Override
     public Court findActiveById(UUID id) {
         return dao.findActiveById(id).map(mapper::toModel)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Active court not found; id: " + id));
     }
 
     @Override

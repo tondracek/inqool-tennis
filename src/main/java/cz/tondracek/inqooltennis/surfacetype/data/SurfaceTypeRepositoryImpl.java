@@ -49,7 +49,8 @@ public class SurfaceTypeRepositoryImpl implements SurfaceTypeRepository {
     @NotNull
     @Override
     public SurfaceType findById(UUID id) {
-        SurfaceTypeEntity entity = dao.findById(id).orElseThrow(NotFoundException::new);
+        SurfaceTypeEntity entity = dao.findById(id)
+                .orElseThrow(() -> new NotFoundException("Surface type not found; id: " + id));
 
         return mapper.toModel(entity);
     }

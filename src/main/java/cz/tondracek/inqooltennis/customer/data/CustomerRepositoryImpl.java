@@ -42,7 +42,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public Customer findById(UUID id) {
         return dao.findById(id)
                 .map(mapper::toModel)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Customer not found; id: " + id));
     }
 
     @Override
@@ -57,6 +57,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public Customer findByPhoneNumber(String phoneNumber) {
         return dao.findByPhoneNumber(phoneNumber)
                 .map(mapper::toModel)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Customer not found; phone number: " + phoneNumber));
     }
 }
