@@ -42,6 +42,15 @@ class CustomerRepositoryImplTest {
     }
 
     @Test
+    void createAndFlush() {
+        when(mapper.toEntity(CUSTOMER)).thenReturn(CUSTOMER_ENTITY);
+
+        Customer result = repository.createAndFlush(CUSTOMER);
+
+        assertEquals(CUSTOMER, result);
+    }
+
+    @Test
     void update() {
         when(mapper.toEntity(CUSTOMER)).thenReturn(CUSTOMER_ENTITY);
 

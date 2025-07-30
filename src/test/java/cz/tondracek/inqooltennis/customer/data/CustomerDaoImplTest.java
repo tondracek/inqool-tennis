@@ -113,4 +113,22 @@ class CustomerDaoImplTest {
                 deleted
         );
     }
+
+    @Test
+    void flush() {
+        CustomerEntity entity = new CustomerEntity(
+                UUID.randomUUID(),
+                "Flush Test Customer",
+                "123456789",
+                false
+        );
+
+        customerDao.save(entity);
+        customerDao.flush();
+
+        CustomerEntity result = entityManager.find(CustomerEntity.class, entity.getId());
+
+        assertNotNull(result);
+        assertEquals(entity, result);
+    }
 }

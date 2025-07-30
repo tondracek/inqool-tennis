@@ -96,7 +96,7 @@ class ReservationServiceImplTest {
                 .thenThrow(NotFoundException.class);
         when(customerMapper.toCustomer(any(CreateCustomerDto.class), any(UUID.class)))
                 .thenReturn(CUSTOMER);
-        when(customerRepository.create(CUSTOMER)).thenReturn(CUSTOMER);
+        when(customerRepository.createAndFlush(CUSTOMER)).thenReturn(CUSTOMER);
 
         when(courtRepository.findActiveById(CREATE_DTO.courtId()))
                 .thenReturn(COURT);
