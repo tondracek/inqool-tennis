@@ -27,6 +27,7 @@ public interface ReservationMapper {
     @Mapping(target = "customer", source = "original.customer")
     @Mapping(target = "startTime", source = "update.startTime")
     @Mapping(target = "endTime", source = "update.endTime")
+    @Mapping(target = "price", source = "price")
     @Mapping(target = "gameType", source = "update.gameType")
     @Mapping(target = "deleted", source = "original.deleted")
     @Mapping(target = "createdAt", source = "original.createdAt")

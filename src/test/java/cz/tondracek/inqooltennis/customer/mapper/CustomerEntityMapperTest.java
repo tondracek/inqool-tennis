@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER;
+import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_2;
+import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_2_ENTITY;
 import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_ENTITY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,23 +21,23 @@ class CustomerEntityMapperTest {
 
     @Test
     void toEntity() {
-        CustomerEntity entity = customerEntityMapper.toEntity(CUSTOMER);
+        CustomerEntity entity = customerEntityMapper.toEntity(CUSTOMER_2);
 
         assertNotNull(entity);
-        assertEquals(CUSTOMER_ENTITY.getId(), entity.getId());
-        assertEquals(CUSTOMER_ENTITY.getName(), entity.getName());
-        assertEquals(CUSTOMER_ENTITY.getPhoneNumber(), entity.getPhoneNumber());
-        assertEquals(CUSTOMER_ENTITY.isDeleted(), entity.isDeleted());
+        assertEquals(CUSTOMER_2_ENTITY.getId(), entity.getId());
+        assertEquals(CUSTOMER_2_ENTITY.getName(), entity.getName());
+        assertEquals(CUSTOMER_2_ENTITY.getPhoneNumber(), entity.getPhoneNumber());
+        assertEquals(CUSTOMER_2_ENTITY.isDeleted(), entity.isDeleted());
     }
 
     @Test
     void toModel() {
-        Customer model = customerEntityMapper.toModel(CUSTOMER_ENTITY);
+        Customer model = customerEntityMapper.toModel(CUSTOMER_2_ENTITY);
 
         assertNotNull(model);
-        assertEquals(CUSTOMER.getId(), model.getId());
-        assertEquals(CUSTOMER.getName(), model.getName());
-        assertEquals(CUSTOMER.getPhoneNumber(), model.getPhoneNumber());
-        assertEquals(CUSTOMER.isDeleted(), model.isDeleted());
+        assertEquals(CUSTOMER_2.getId(), model.getId());
+        assertEquals(CUSTOMER_2.getName(), model.getName());
+        assertEquals(CUSTOMER_2.getPhoneNumber(), model.getPhoneNumber());
+        assertEquals(CUSTOMER_2.isDeleted(), model.isDeleted());
     }
 }

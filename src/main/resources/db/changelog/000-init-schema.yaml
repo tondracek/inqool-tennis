@@ -1,0 +1,154 @@
+databaseChangeLog:
+  - changeSet:
+      id: 000
+      author: tondracek
+      changes:
+        - createTable:
+            tableName: surface_type_entity
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deleted
+                  type: boolean
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: customer_entity
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: boolean
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: court_entity
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surface_type_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deleted
+                  type: boolean
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: court_entity
+            baseColumnNames: surface_type_id
+            referencedTableName: surface_type_entity
+            referencedColumnNames: id
+            constraintName: fk_court_surface_type
+
+        - createTable:
+            tableName: reservation_entity
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: court_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+              - column:
+                  name: game_type
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deleted
+                  type: boolean
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: reservation_entity
+            baseColumnNames: court_id
+            referencedTableName: court_entity
+            referencedColumnNames: id
+            constraintName: fk_reservation_court
+
+        - addForeignKeyConstraint:
+            baseTableName: reservation_entity
+            baseColumnNames: customer_id
+            referencedTableName: customer_entity
+            referencedColumnNames: id
+            constraintName: fk_reservation_customer

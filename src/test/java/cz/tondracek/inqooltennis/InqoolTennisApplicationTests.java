@@ -10,4 +10,9 @@ class InqoolTennisApplicationTests {
     void contextLoads() {
     }
 
+
+    @Test
+    void main() {
+        InqoolTennisApplication.main(new String[]{});
+    }
 }

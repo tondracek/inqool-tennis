@@ -7,6 +7,7 @@ import cz.tondracek.inqooltennis.customer.CustomerSample;
 import cz.tondracek.inqooltennis.reservation.data.ReservationEntity;
 import cz.tondracek.inqooltennis.reservation.dto.CreateReservationDto;
 import cz.tondracek.inqooltennis.reservation.dto.ReservationDetailDto;
+import cz.tondracek.inqooltennis.reservation.dto.ReservationPreviewDto;
 import cz.tondracek.inqooltennis.reservation.dto.UpdateReservationDto;
 import cz.tondracek.inqooltennis.reservation.model.Reservation;
 
@@ -19,8 +20,8 @@ public class ReservationSample {
 
     public static final CreateReservationDto CREATE_DTO = new CreateReservationDto(
             CourtSample.COURT.getId(),
-            LocalDateTime.of(2023, 10, 1, 10, 0),
-            LocalDateTime.of(2023, 10, 1, 11, 0),
+            LocalDateTime.of(3023, 10, 1, 10, 0),
+            LocalDateTime.of(3023, 10, 1, 11, 0),
             GameType.SINGLES,
             CustomerSample.CUSTOMER.getName(),
             CustomerSample.CUSTOMER.getPhoneNumber()
@@ -29,8 +30,8 @@ public class ReservationSample {
             SAMPLE_ID,
             CourtSample.COURT,
             CustomerSample.CUSTOMER,
-            LocalDateTime.of(2023, 10, 1, 10, 0),
-            LocalDateTime.of(2023, 10, 1, 11, 0),
+            LocalDateTime.of(3023, 10, 1, 10, 0),
+            LocalDateTime.of(3023, 10, 1, 11, 0),
             PriceSample.CZK_100,
             GameType.SINGLES,
             false,
@@ -41,8 +42,8 @@ public class ReservationSample {
             SAMPLE_ID,
             CourtSample.COURT_ENTITY,
             CustomerSample.CUSTOMER_ENTITY,
-            LocalDateTime.of(2023, 10, 1, 10, 0),
-            LocalDateTime.of(2023, 10, 1, 11, 0),
+            LocalDateTime.of(3023, 10, 1, 10, 0),
+            LocalDateTime.of(3023, 10, 1, 11, 0),
             PriceSample.CZK_100_EMBEDDABLE,
             GameType.SINGLES,
             false
@@ -51,8 +52,8 @@ public class ReservationSample {
             SAMPLE_ID,
             CourtSample.COURT_ENTITY,
             CustomerSample.CUSTOMER_ENTITY,
-            LocalDateTime.of(2023, 10, 1, 10, 0),
-            LocalDateTime.of(2023, 10, 1, 11, 0),
+            LocalDateTime.of(3023, 10, 1, 10, 0),
+            LocalDateTime.of(3023, 10, 1, 11, 0),
             PriceSample.CZK_100_EMBEDDABLE,
             GameType.SINGLES,
             true
@@ -61,26 +62,33 @@ public class ReservationSample {
             SAMPLE_ID,
             CourtSample.COURT_DTO,
             CustomerSample.CUSTOMER_DTO,
-            LocalDateTime.of(2023, 10, 1, 10, 0),
-            LocalDateTime.of(2023, 10, 1, 11, 0),
+            LocalDateTime.of(3023, 10, 1, 10, 0),
+            LocalDateTime.of(3023, 10, 1, 11, 0),
             PriceSample.CZK_100_DTO,
             GameType.SINGLES,
             false,
             LocalDateTime.now()
     );
+    public static final ReservationPreviewDto RESERVATION_PREVIEW_DTO = new ReservationPreviewDto(
+            SAMPLE_ID,
+            CourtSample.COURT.getName(),
+            CustomerSample.CUSTOMER.getName(),
+            LocalDateTime.of(3023, 10, 1, 10, 0),
+            LocalDateTime.of(3023, 10, 1, 11, 0)
+    );
 
     public static final UpdateReservationDto UPDATE_DTO = new UpdateReservationDto(
             CourtSample.COURT_2.getId(),
-            LocalDateTime.of(2023, 10, 2, 12, 0),
-            LocalDateTime.of(2023, 10, 2, 13, 0),
+            LocalDateTime.of(3023, 10, 2, 12, 0),
+            LocalDateTime.of(3023, 10, 2, 13, 0),
             GameType.DOUBLES
     );
     public static final Reservation UPDATED_RESERVATION = new Reservation(
             SAMPLE_ID,
             CourtSample.COURT_2,
             CustomerSample.CUSTOMER,
-            LocalDateTime.of(2023, 10, 2, 12, 0),
-            LocalDateTime.of(2023, 10, 2, 13, 0),
+            LocalDateTime.of(3023, 10, 2, 12, 0),
+            LocalDateTime.of(3023, 10, 2, 13, 0),
             PriceSample.EUR_200,
             GameType.DOUBLES,
             false,
@@ -90,41 +98,52 @@ public class ReservationSample {
             SAMPLE_ID,
             CourtSample.COURT_2_ENTITY,
             CustomerSample.CUSTOMER_ENTITY,
-            LocalDateTime.of(2023, 10, 2, 12, 0),
-            LocalDateTime.of(2023, 10, 2, 13, 0),
+            LocalDateTime.of(3023, 10, 2, 12, 0),
+            LocalDateTime.of(3023, 10, 2, 13, 0),
             PriceSample.EUR_200_EMBEDDABLE,
             GameType.DOUBLES,
             false
     );
+    public static final ReservationDetailDto UPDATED_RESERVATION_DTO = new ReservationDetailDto(
+            SAMPLE_ID,
+            CourtSample.COURT_2_DTO,
+            CustomerSample.CUSTOMER_DTO,
+            LocalDateTime.of(3023, 10, 2, 12, 0),
+            LocalDateTime.of(3023, 10, 2, 13, 0),
+            PriceSample.EUR_200_DTO,
+            GameType.DOUBLES,
+            false,
+            LocalDateTime.now()
+    );
 
-    public static final UUID RESERVATION_2030_ID = UUID.randomUUID();
-    public static final Reservation RESERVATION_2030 = new Reservation(
-            RESERVATION_2030_ID,
+    public static final UUID RESERVATION_2000_ID = UUID.randomUUID();
+    public static final Reservation RESERVATION_2000 = new Reservation(
+            RESERVATION_2000_ID,
             CourtSample.COURT_2,
             CustomerSample.CUSTOMER_2,
-            LocalDateTime.of(2030, 9, 3, 14, 0),
-            LocalDateTime.of(2030, 9, 3, 15, 0),
+            LocalDateTime.of(2000, 9, 3, 14, 0),
+            LocalDateTime.of(2000, 9, 3, 15, 0),
             PriceSample.EUR_100,
             GameType.DOUBLES,
             false,
             LocalDateTime.now()
     );
-    public static final ReservationEntity RESERVATION_2030_ENTITY = new ReservationEntity(
-            RESERVATION_2030_ID,
+    public static final ReservationEntity RESERVATION_2000_ENTITY = new ReservationEntity(
+            RESERVATION_2000_ID,
             CourtSample.COURT_2_ENTITY,
             CustomerSample.CUSTOMER_2_ENTITY,
-            LocalDateTime.of(2030, 9, 3, 14, 0),
-            LocalDateTime.of(2030, 9, 3, 15, 0),
+            LocalDateTime.of(2000, 9, 3, 14, 0),
+            LocalDateTime.of(2000, 9, 3, 15, 0),
             PriceSample.EUR_100_EMBEDDABLE,
             GameType.DOUBLES,
             false
     );
-    public static final ReservationDetailDto RESERVATION_2030_DTO = new ReservationDetailDto(
-            RESERVATION_2030_ID,
+    public static final ReservationDetailDto RESERVATION_2000_DTO = new ReservationDetailDto(
+            RESERVATION_2000_ID,
             CourtSample.COURT_2_DTO,
             CustomerSample.CUSTOMER_2_DTO,
-            LocalDateTime.of(2030, 9, 3, 14, 0),
-            LocalDateTime.of(2030, 9, 3, 15, 0),
+            LocalDateTime.of(2000, 9, 3, 14, 0),
+            LocalDateTime.of(2000, 9, 3, 15, 0),
             PriceSample.EUR_100_DTO,
             GameType.DOUBLES,
             false,
@@ -142,5 +161,28 @@ public class ReservationSample {
             PriceSample.EUR_100_EMBEDDABLE,
             GameType.DOUBLES,
             true
+    );
+
+    private static final UUID RESERVATION_CONFLICT_ID = UUID.randomUUID();
+    public static final Reservation RESERVATION_CONFLICT = new Reservation(
+            RESERVATION_CONFLICT_ID,
+            RESERVATION.getCourt(),
+            RESERVATION.getCustomer(),
+            RESERVATION.getStartTime(),
+            RESERVATION.getEndTime(),
+            RESERVATION.getPrice(),
+            RESERVATION.getGameType(),
+            RESERVATION.isDeleted(),
+            RESERVATION.getCreatedAt()
+    );
+    public static final ReservationEntity RESERVATION_CONFLICT_ENTITY = new ReservationEntity(
+            RESERVATION_CONFLICT_ID,
+            RESERVATION_ENTITY.getCourt(),
+            RESERVATION_ENTITY.getCustomer(),
+            RESERVATION_ENTITY.getStartTime(),
+            RESERVATION_ENTITY.getEndTime(),
+            RESERVATION_ENTITY.getPrice(),
+            RESERVATION_ENTITY.getGameType(),
+            RESERVATION_ENTITY.isDeleted()
     );
 }

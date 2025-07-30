@@ -8,10 +8,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static cz.tondracek.inqooltennis.reservation.ReservationSample.RESERVATION_2030_ENTITY;
+import static cz.tondracek.inqooltennis.reservation.ReservationSample.RESERVATION_2000_ENTITY;
 import static cz.tondracek.inqooltennis.reservation.ReservationSample.RESERVATION_2140_DELETED_ENTITY;
 import static cz.tondracek.inqooltennis.reservation.ReservationSample.RESERVATION_ENTITY;
 import static cz.tondracek.inqooltennis.reservation.ReservationSample.UPDATED_RESERVATION_ENTITY;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @Import(ReservationDaoImpl.class)
-class ReservationDaoTest {
+class ReservationDaoImplTest {
 
     @Autowired
     private ReservationDao reservationDao;
@@ -41,7 +42,7 @@ class ReservationDaoTest {
     @BeforeEach
     void setUp() {
         saveReservationComponents(RESERVATION_ENTITY);
-        saveReservationComponents(RESERVATION_2030_ENTITY);
+        saveReservationComponents(RESERVATION_2000_ENTITY);
         saveReservationComponents(RESERVATION_2140_DELETED_ENTITY);
         saveReservationComponents(UPDATED_RESERVATION_ENTITY);
     }
@@ -85,7 +86,7 @@ class ReservationDaoTest {
     @Test
     void findAllActive_shouldReturnOnlyNotDeletedReservations() {
         entityManager.persist(RESERVATION_ENTITY);
-        entityManager.persist(RESERVATION_2030_ENTITY);
+        entityManager.persist(RESERVATION_2000_ENTITY);
         entityManager.persist(RESERVATION_2140_DELETED_ENTITY);
 
         List<ReservationEntity> activeReservations = reservationDao.findAllActive();
@@ -99,19 +100,19 @@ class ReservationDaoTest {
     @Test
     void findActiveByCourtId() {
         entityManager.persist(RESERVATION_ENTITY);
-        entityManager.persist(RESERVATION_2030_ENTITY);
+        entityManager.persist(RESERVATION_2000_ENTITY);
 
-        List<ReservationEntity> results = reservationDao.findActiveByCourtId(RESERVATION_2030_ENTITY.getCourt().getId());
+        List<ReservationEntity> results = reservationDao.findActiveByCourtId(RESERVATION_2000_ENTITY.getCourt().getId());
 
         assertEquals(1, results.size());
-        assertEquals(RESERVATION_2030_ENTITY.getId(), results.getFirst().getId());
+        assertEquals(RESERVATION_2000_ENTITY.getId(), results.getFirst().getId());
         assertTrue(results.stream().noneMatch(ReservationEntity::isDeleted));
     }
 
     @Test
     void findActiveByPhoneNumber() {
         entityManager.persist(RESERVATION_ENTITY);
-        entityManager.persist(RESERVATION_2030_ENTITY);
+        entityManager.persist(RESERVATION_2000_ENTITY);
 
         List<ReservationEntity> results = reservationDao.findActiveByPhoneNumber(RESERVATION_ENTITY.getCustomer().getPhoneNumber());
 
@@ -123,13 +124,13 @@ class ReservationDaoTest {
     @Test
     void findActiveFutureByPhoneNumber_shouldReturnOnlyFutureReservations() {
         entityManager.persist(RESERVATION_ENTITY);
-        entityManager.persist(RESERVATION_2030_ENTITY);
+        entityManager.persist(RESERVATION_2000_ENTITY);
 
-        List<ReservationEntity> results = reservationDao.findActiveFutureByPhoneNumber(RESERVATION_2030_ENTITY.getCustomer().getPhoneNumber());
+        List<ReservationEntity> results = reservationDao.findActiveFutureByPhoneNumber(RESERVATION_ENTITY.getCustomer().getPhoneNumber());
 
         assertEquals(1, results.size());
-        assertEquals(RESERVATION_2030_ENTITY.getId(), results.getFirst().getId());
+        assertEquals(RESERVATION_ENTITY.getId(), results.getFirst().getId());
         assertTrue(results.stream().noneMatch(ReservationEntity::isDeleted));
-        assertTrue(results.getFirst().getStartTime().isAfter(java.time.LocalDateTime.now()));
+        assertTrue(results.stream().allMatch((entity) -> entity.getStartTime().isAfter(LocalDateTime.now())));
     }
 }
