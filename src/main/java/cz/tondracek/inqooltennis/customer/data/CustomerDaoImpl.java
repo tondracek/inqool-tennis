@@ -42,4 +42,9 @@ public class CustomerDaoImpl implements CustomerDao {
             return Optional.empty();
         }
     }
+
+    @Override
+    public void flush() {
+        entityManager.flush();
+    }
 }

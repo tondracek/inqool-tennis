@@ -31,6 +31,14 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
+    public Customer createAndFlush(Customer customer) {
+        CustomerEntity customerEntity = mapper.toEntity(customer);
+        dao.save(customerEntity);
+        dao.flush();
+        return customer;
+    }
+
+    @Override
     public Customer update(Customer customer) {
         CustomerEntity customerEntity = mapper.toEntity(customer);
         dao.update(customerEntity);

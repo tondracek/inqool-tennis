@@ -144,7 +144,7 @@ public class ReservationServiceImpl implements ReservationService {
             );
             Customer newCustomer = customerMapper.toCustomer(createCustomerDto, UUID.randomUUID());
 
-            return customerRepository.create(newCustomer);
+            return customerRepository.createAndFlush(newCustomer);
         }
     }
 

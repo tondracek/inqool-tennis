@@ -15,6 +15,14 @@ public interface CustomerRepository {
     Customer create(Customer customer);
 
     /**
+     * Creates a customer and flushes the changes to the database immediately.
+     *
+     * @param customer the customer to be created
+     * @return the created customer
+     */
+    Customer createAndFlush(Customer customer);
+
+    /**
      * @param customer the customer to be updated
      * @return the updated customer
      * @throws NotFoundException if the customer with the given ID does not exist

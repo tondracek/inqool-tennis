@@ -15,4 +15,6 @@ public interface CustomerDao {
     List<CustomerEntity> findAllActive();
 
     Optional<CustomerEntity> findByPhoneNumber(String phoneNumber);
+
+    void flush();
 }
