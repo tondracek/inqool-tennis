@@ -9,4 +9,8 @@ public class PasswordEncoder {
     public static String hash(String password) {
         return encoder.encode(password);
     }
+
+    public static boolean matches(String password, String passwordHash) {
+        return encoder.matches(password, passwordHash);
+    }
 }
