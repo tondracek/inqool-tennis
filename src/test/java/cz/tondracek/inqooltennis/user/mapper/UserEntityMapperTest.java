@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class UserEntityMapperTest {
 
     @Autowired
-    UserEntityMapper mapper;
+    UserEntityMapper userEntityMapper;
 
     @Test
     void toEntity() {
-        UserEntity result = mapper.toEntity(USER);
+        UserEntity result = userEntityMapper.toEntity(USER);
         assertNotNull(result);
         assertEquals(USER.id(), result.getId());
         assertEquals(USER.email(), result.getEmail());
@@ -30,7 +30,7 @@ class UserEntityMapperTest {
 
     @Test
     void toModel() {
-        User result = mapper.toModel(USER_ENTITY);
+        User result = userEntityMapper.toModel(USER_ENTITY);
         assertNotNull(result);
         assertEquals(USER_ENTITY.getId(), result.id());
         assertEquals(USER_ENTITY.getEmail(), result.email());

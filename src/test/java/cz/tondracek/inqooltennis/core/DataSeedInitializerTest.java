@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
@@ -31,6 +32,8 @@ class DataSeedInitializerTest {
 
     @Test
     void init() {
+        assertNotNull(initializer);
+
         verify(surfaceTypeRepository, atLeastOnce()).create(any());
         verify(courtRepository, atLeastOnce()).create(any());
         verify(userRepository, atLeastOnce()).create(any());
