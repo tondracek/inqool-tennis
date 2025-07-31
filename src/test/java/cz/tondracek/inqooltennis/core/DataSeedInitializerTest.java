@@ -2,6 +2,7 @@ package cz.tondracek.inqooltennis.core;
 
 import cz.tondracek.inqooltennis.court.data.CourtRepository;
 import cz.tondracek.inqooltennis.surfacetype.data.SurfaceTypeRepository;
+import cz.tondracek.inqooltennis.user.data.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,9 @@ class DataSeedInitializerTest {
     @MockBean
     private CourtRepository courtRepository;
 
+    @MockBean
+    private UserRepository userRepository;
+
     @Autowired
     private DataSeedInitializer initializer;
 
@@ -29,5 +33,6 @@ class DataSeedInitializerTest {
     void init() {
         verify(surfaceTypeRepository, atLeastOnce()).create(any());
         verify(courtRepository, atLeastOnce()).create(any());
+        verify(userRepository, atLeastOnce()).create(any());
     }
 }

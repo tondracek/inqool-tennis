@@ -1,10 +1,14 @@
 package cz.tondracek.inqooltennis.core;
 
+import cz.tondracek.inqooltennis.common.password.PasswordEncoder;
 import cz.tondracek.inqooltennis.common.price.model.Price;
 import cz.tondracek.inqooltennis.court.data.CourtRepository;
 import cz.tondracek.inqooltennis.court.model.Court;
 import cz.tondracek.inqooltennis.surfacetype.data.SurfaceTypeRepository;
 import cz.tondracek.inqooltennis.surfacetype.model.SurfaceType;
+import cz.tondracek.inqooltennis.user.data.UserRepository;
+import cz.tondracek.inqooltennis.user.model.User;
+import cz.tondracek.inqooltennis.user.model.UserRole;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,12 +26,14 @@ public class DataSeedInitializer {
 
     private final SurfaceTypeRepository surfaceTypeRepository;
     private final CourtRepository courtRepository;
+    private final UserRepository userRepository;
 
     @PostConstruct
     public void init() {
         if (seedEnabled) {
             SurfaceTypeInit();
             CourtInit();
+            UsersInit();
         }
     }
 
@@ -73,6 +79,14 @@ public class DataSeedInitializer {
             false
     );
 
+    User admin = new User(
+            UUID.randomUUID(),
+            "admin@mail.com",
+            PasswordEncoder.hash("admin"),
+            UserRole.ADMIN,
+            false
+    );
+
     private void SurfaceTypeInit() {
         surfaceTypeRepository.create(tartar);
         surfaceTypeRepository.create(grass);
@@ -83,5 +97,9 @@ public class DataSeedInitializer {
         courtRepository.create(basic1);
         courtRepository.create(premium0);
         courtRepository.create(premium1);
+    }
+
+    private void UsersInit() {
+        userRepository.create(admin);
     }
 }

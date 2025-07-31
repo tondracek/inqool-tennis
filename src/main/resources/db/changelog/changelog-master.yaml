@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/000-init-schema.yaml
   - include:
       file: db/changelog/001-add-createdAt.yaml
+  - include:
+      file: db/changelog/002-add-user-table.yaml

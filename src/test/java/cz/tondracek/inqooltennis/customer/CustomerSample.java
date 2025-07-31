@@ -36,6 +36,12 @@ public class CustomerSample {
             "+420123456789",
             false
     );
+    public static final Customer CUSTOMER_DUPLICATE_PHONE_NUMBER = new Customer(
+            UUID.randomUUID(),
+            "Customer Duplicate Phone",
+            "+420123456789",
+            false
+    );
 
     public static final UpdateCustomerDto UPDATE_DTO = new UpdateCustomerDto(
             "Customer Updated",

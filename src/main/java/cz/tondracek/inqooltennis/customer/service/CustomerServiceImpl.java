@@ -33,14 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDetailDto createCustomer(CreateCustomerDto createDto) {
         Customer newCustomer = mapper.toCustomer(createDto, UUID.randomUUID());
 
-        Customer userWithPhoneNumber;
-        try {
-            userWithPhoneNumber = repository.findByPhoneNumber(newCustomer.getPhoneNumber());
-        } catch (NotFoundException e) {
-            userWithPhoneNumber = null;
-        }
-        if (userWithPhoneNumber != null)
-            throw new ConflictException("Customer with this phone number already exists.");
+        checkForCustomerWithExistingPhoneNumber(newCustomer);
 
         repository.create(newCustomer);
         return mapper.toDetailDto(newCustomer);
@@ -52,14 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer original = repository.findById(id);
         Customer updated = mapper.toCustomer(updateDto, original);
 
-        Customer userWithPhoneNumber;
-        try {
-            userWithPhoneNumber = repository.findByPhoneNumber(updated.getPhoneNumber());
-        } catch (NotFoundException e) {
-            userWithPhoneNumber = null;
-        }
-        if (userWithPhoneNumber != null && !userWithPhoneNumber.getId().equals(id))
-            throw new ConflictException("Customer with this phone number already exists.");
+        checkForCustomerWithExistingPhoneNumber(updated);
 
         repository.update(updated);
         return mapper.toDetailDto(updated);
@@ -87,5 +73,16 @@ public class CustomerServiceImpl implements CustomerService {
         return repository.findAllActive().stream()
                 .map(mapper::toDetailDto)
                 .toList();
+    }
+
+    private void checkForCustomerWithExistingPhoneNumber(Customer newCustomer) {
+        Customer userWithPhoneNumber;
+        try {
+            userWithPhoneNumber = repository.findByPhoneNumber(newCustomer.getPhoneNumber());
+        } catch (NotFoundException e) {
+            userWithPhoneNumber = null;
+        }
+        if (userWithPhoneNumber != null && !userWithPhoneNumber.getId().equals(newCustomer.getId()))
+            throw new ConflictException("Customer with this phone number already exists.");
     }
 }

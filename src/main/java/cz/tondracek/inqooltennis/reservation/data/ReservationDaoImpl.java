@@ -2,12 +2,14 @@ package cz.tondracek.inqooltennis.reservation.data;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Transactional
 @Repository
 public class ReservationDaoImpl implements ReservationDao {
 

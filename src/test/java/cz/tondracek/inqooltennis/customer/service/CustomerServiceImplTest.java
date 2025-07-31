@@ -22,6 +22,7 @@ import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_2;
 import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_2_DTO;
 import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_DELETED;
 import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_DTO;
+import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_DUPLICATE_PHONE_NUMBER;
 import static cz.tondracek.inqooltennis.customer.CustomerSample.UPDATED_CUSTOMER;
 import static cz.tondracek.inqooltennis.customer.CustomerSample.UPDATED_CUSTOMER_DTO;
 import static cz.tondracek.inqooltennis.customer.CustomerSample.UPDATE_DTO;
@@ -57,8 +58,10 @@ class CustomerServiceImplTest {
 
     @Test
     void createCustomer_shouldFailOnDuplicatePhoneNumber() {
+        assert CUSTOMER.getPhoneNumber().equals(CUSTOMER_DUPLICATE_PHONE_NUMBER.getPhoneNumber());
+
         when(mapper.toCustomer(eq(CREATE_DTO), any(UUID.class))).thenReturn(CUSTOMER);
-        when(repository.findByPhoneNumber(CUSTOMER.getPhoneNumber())).thenReturn(CUSTOMER);
+        when(repository.findByPhoneNumber(CUSTOMER_DUPLICATE_PHONE_NUMBER.getPhoneNumber())).thenReturn(CUSTOMER_DUPLICATE_PHONE_NUMBER);
 
         assertThrows(ConflictException.class, () -> service.createCustomer(CREATE_DTO));
     }
