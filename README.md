@@ -9,7 +9,7 @@ Developer assignment.
 
 This server-side application provides:
 
-- CRUD operations on the features
+- CRUD operations on required features (see below)
 - Securing access using **JWT authentication**
 - diagrams for use cases and class structures (see below)
 - 90+% unit test coverage
@@ -20,6 +20,7 @@ This server-side application provides:
 
 ### Showcase and testing
 
+- requires **JDK 21**
 - I recommend using Swagger to explore the API endpoints
 - http://localhost:8080/swagger-ui/index.html
 - login with either of pre-generated users:
@@ -35,7 +36,7 @@ This server-side application provides:
 - CRUD operations for reservations (ADMIN and USER for creating)
 - CRUD operations for users (ADMIN only)
 - CRUD operations for customers (ADMIN only and automatic creation when creating a reservation)
-- `/api/auth/login` endpoint with authentication to obtain a JWT token.
+- `/api/auth/login` endpoint with authentication to obtain a JWT token in the response body
 
 ---
 
