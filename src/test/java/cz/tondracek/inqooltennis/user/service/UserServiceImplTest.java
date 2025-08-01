@@ -25,6 +25,7 @@ import static cz.tondracek.inqooltennis.user.UserSample.UPDATED_USER;
 import static cz.tondracek.inqooltennis.user.UserSample.UPDATED_USER_DTO;
 import static cz.tondracek.inqooltennis.user.UserSample.UPDATE_DTO;
 import static cz.tondracek.inqooltennis.user.UserSample.USER;
+import static cz.tondracek.inqooltennis.user.UserSample.USER_DELETED;
 import static cz.tondracek.inqooltennis.user.UserSample.USER_DTO;
 import static cz.tondracek.inqooltennis.user.UserSample.USER_DUPLICATE_EMAIL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -104,6 +105,16 @@ class UserServiceImplTest {
         UpdateUserDto dto = new UpdateUserDto("invalid", "pass", USER.role());
 
         assertThrows(BadRequestException.class, () -> service.updateUser(USER.id(), dto));
+    }
+
+    @Test
+    void softDeleteUser() {
+        when(repository.findById(USER.id())).thenReturn(USER);
+        when(repository.update(USER_DELETED)).thenReturn(USER_DELETED);
+
+        service.softDeleteUser(USER.id());
+
+        verify(repository).update(USER_DELETED);
     }
 
     @Test

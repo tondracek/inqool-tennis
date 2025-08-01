@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.UUID;
 
 import static cz.tondracek.inqooltennis.user.UserSample.ADMIN_DTO;
 import static cz.tondracek.inqooltennis.user.UserSample.CREATE_DTO;
@@ -23,7 +24,10 @@ import static cz.tondracek.inqooltennis.user.UserSample.UPDATED_USER_DTO;
 import static cz.tondracek.inqooltennis.user.UserSample.UPDATE_DTO;
 import static cz.tondracek.inqooltennis.user.UserSample.USER;
 import static cz.tondracek.inqooltennis.user.UserSample.USER_DTO;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -103,6 +107,22 @@ class UserControllerTest {
     }
 
     @Test
+    void deleteUser() throws Exception {
+        mockMvc.perform(delete("/api/users/{id}", USER.id())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void deleteSurfaceType_shouldReturnNotFound() throws Exception {
+        doThrow(new NotFoundException()).when(service).softDeleteUser(any(UUID.class));
+
+        mockMvc.perform(delete("/api/users/{id}", USER.id())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+        @Test
     void findUserById() throws Exception {
         when(service.findUserById(USER.id().toString())).thenReturn(USER_DTO);
 
