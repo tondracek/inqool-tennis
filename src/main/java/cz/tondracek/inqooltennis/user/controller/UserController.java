@@ -7,6 +7,7 @@ import cz.tondracek.inqooltennis.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,14 @@ public class UserController {
             @Valid @RequestBody UpdateUserDto dto
     ) {
         return ResponseEntity.ok(userService.updateUser(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(
+            @PathVariable UUID id
+    ) {
+        userService.softDeleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")

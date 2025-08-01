@@ -33,6 +33,14 @@ public interface UserService {
     UserDetailDto updateUser(UUID id, UpdateUserDto updateUserDto);
 
     /**
+     * Soft deletes a user by marking them as inactive.
+     *
+     * @param id the ID of the user to soft-delete
+     * @throws NotFoundException if the user with the given ID does not exist
+     */
+    void softDeleteUser(UUID id);
+
+    /**
      * Finds a user by their ID.
      *
      * @param id the ID of the user to find

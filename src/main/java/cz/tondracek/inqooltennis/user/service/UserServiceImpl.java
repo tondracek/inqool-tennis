@@ -59,6 +59,14 @@ public class UserServiceImpl implements UserService {
         return mapper.toDetailDto(updatedUser);
     }
 
+    @Override
+    public void softDeleteUser(UUID id) {
+        User user = repository.findById(id);
+        User deleted = user.withDeleted(true);
+
+        repository.update(deleted);
+    }
+
     @Transactional(readOnly = true)
     @Override
     public UserDetailDto findUserById(String id) {
