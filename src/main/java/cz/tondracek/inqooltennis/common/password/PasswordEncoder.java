@@ -13,4 +13,8 @@ public class PasswordEncoder {
     public static boolean matches(String password, String passwordHash) {
         return encoder.matches(password, passwordHash);
     }
+
+    public static org.springframework.security.crypto.password.PasswordEncoder getEncoder() {
+        return encoder;
+    }
 }

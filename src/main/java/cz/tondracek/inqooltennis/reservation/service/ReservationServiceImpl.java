@@ -139,8 +139,8 @@ public class ReservationServiceImpl implements ReservationService {
             return customerRepository.findByPhoneNumber(createDto.customerPhoneNumber());
         } catch (NotFoundException e) {
             CreateCustomerDto createCustomerDto = new CreateCustomerDto(
-                    createDto.customerPhoneNumber(),
-                    createDto.customerName()
+                    createDto.customerName(),
+                    createDto.customerPhoneNumber()
             );
             Customer newCustomer = customerMapper.toCustomer(createCustomerDto, UUID.randomUUID());
 

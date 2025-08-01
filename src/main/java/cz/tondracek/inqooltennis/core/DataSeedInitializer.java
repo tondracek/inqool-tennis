@@ -86,6 +86,13 @@ public class DataSeedInitializer {
             UserRole.ADMIN,
             false
     );
+    User user = new User(
+            UUID.randomUUID(),
+            "user@mail.com",
+            PasswordEncoder.hash("user"),
+            UserRole.USER,
+            false
+    );
 
     private void SurfaceTypeInit() {
         surfaceTypeRepository.create(tartar);
@@ -101,5 +108,6 @@ public class DataSeedInitializer {
 
     private void UsersInit() {
         userRepository.create(admin);
+        userRepository.create(user);
     }
 }
