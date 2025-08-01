@@ -122,7 +122,7 @@ class UserControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-        @Test
+    @Test
     void findUserById() throws Exception {
         when(service.findUserById(USER.id().toString())).thenReturn(USER_DTO);
 

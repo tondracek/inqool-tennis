@@ -37,56 +37,56 @@ public class DataSeedInitializer {
         }
     }
 
-    SurfaceType tartar = new SurfaceType(
+    private final SurfaceType tartar = new SurfaceType(
             UUID.randomUUID(),
             "Tartar",
             new Price(BigDecimal.valueOf(1.2), "CZK"),
             false
     );
 
-    SurfaceType grass = new SurfaceType(
+    private final SurfaceType grass = new SurfaceType(
             UUID.randomUUID(),
             "Grass",
             new Price(BigDecimal.valueOf(2.85), "CZK"),
             false
     );
 
-    Court basic0 = new Court(
+    private final Court basic0 = new Court(
             UUID.randomUUID(),
             "A basic cheap court 1",
             tartar,
             false
     );
 
-    Court basic1 = new Court(
+    private final Court basic1 = new Court(
             UUID.randomUUID(),
             "A basic cheap court 2",
             tartar,
             false
     );
 
-    Court premium0 = new Court(
+    private final Court premium0 = new Court(
             UUID.randomUUID(),
             "A Premium Court",
             grass,
             false
     );
 
-    Court premium1 = new Court(
+    private final Court premium1 = new Court(
             UUID.randomUUID(),
             "An Extra Premium Court",
             grass,
             false
     );
 
-    User admin = new User(
+    private final User admin = new User(
             UUID.randomUUID(),
             "admin@mail.com",
             PasswordEncoder.hash("admin"),
             UserRole.ADMIN,
             false
     );
-    User user = new User(
+    private final User user = new User(
             UUID.randomUUID(),
             "user@mail.com",
             PasswordEncoder.hash("user"),

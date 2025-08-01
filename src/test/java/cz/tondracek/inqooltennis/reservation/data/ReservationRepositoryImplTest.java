@@ -14,7 +14,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static cz.tondracek.inqooltennis.reservation.ReservationSample.*;
+import static cz.tondracek.inqooltennis.reservation.ReservationSample.RESERVATION;
+import static cz.tondracek.inqooltennis.reservation.ReservationSample.RESERVATION_2000;
+import static cz.tondracek.inqooltennis.reservation.ReservationSample.RESERVATION_2000_ENTITY;
+import static cz.tondracek.inqooltennis.reservation.ReservationSample.RESERVATION_ENTITY;
+import static cz.tondracek.inqooltennis.reservation.ReservationSample.UPDATED_RESERVATION;
+import static cz.tondracek.inqooltennis.reservation.ReservationSample.UPDATED_RESERVATION_ENTITY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;

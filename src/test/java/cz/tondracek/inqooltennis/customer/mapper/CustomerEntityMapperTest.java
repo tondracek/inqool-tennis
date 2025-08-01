@@ -6,10 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER;
 import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_2;
 import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_2_ENTITY;
-import static cz.tondracek.inqooltennis.customer.CustomerSample.CUSTOMER_ENTITY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
