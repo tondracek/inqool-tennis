@@ -13,14 +13,18 @@ import cz.tondracek.inqooltennis.reservation.model.Reservation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.UUID;
+
 @Mapper(componentModel = "spring", uses = {CourtMapper.class, CustomerMapper.class})
 public interface ReservationMapper {
 
-    @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID())")
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "court", source = "court")
+    @Mapping(target = "customer", source = "customer")
     @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "deleted", constant = "false")
     @Mapping(target = "withDeleted", ignore = true)
-    Reservation toReservation(CreateReservationDto create, Customer customer, Price price, Court court);
+    Reservation toReservation(CreateReservationDto create, UUID id, Customer customer, Price price, Court court);
 
     @Mapping(target = "id", source = "original.id")
     @Mapping(target = "court", source = "court")

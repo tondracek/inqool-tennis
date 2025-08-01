@@ -75,7 +75,7 @@ class ReservationServiceImplTest {
         when(courtRepository.findActiveById(CREATE_DTO.courtId()))
                 .thenReturn(COURT);
 
-        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(), any(), any()))
+        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(UUID.class), any(), any(), any()))
                 .thenReturn(RESERVATION);
 
         when(reservationRepository.findActiveByCourtId(COURT.getId()))
@@ -101,7 +101,7 @@ class ReservationServiceImplTest {
         when(courtRepository.findActiveById(CREATE_DTO.courtId()))
                 .thenReturn(COURT);
 
-        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(), any(), any()))
+        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(UUID.class), any(), any(), any()))
                 .thenReturn(RESERVATION);
 
         when(reservationRepository.findActiveByCourtId(COURT.getId()))
@@ -124,7 +124,7 @@ class ReservationServiceImplTest {
         when(courtRepository.findActiveById(CREATE_DTO.courtId()))
                 .thenReturn(COURT);
 
-        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(), any(), any()))
+        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(UUID.class), any(), any(), any()))
                 .thenReturn(RESERVATION);
 
         // Simulate an overlapping reservation
@@ -151,7 +151,7 @@ class ReservationServiceImplTest {
         when(courtRepository.findActiveById(invalidDto.courtId()))
                 .thenReturn(COURT);
 
-        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(), any(), any()))
+        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(UUID.class), any(), any(), any()))
                 .thenAnswer(inv -> new Reservation(
                         UUID.randomUUID(),
                         COURT,
@@ -184,7 +184,7 @@ class ReservationServiceImplTest {
         when(courtRepository.findActiveById(invalidDto.courtId()))
                 .thenReturn(COURT);
 
-        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(), any(), any()))
+        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(UUID.class), any(), any(), any()))
                 .thenAnswer(inv -> new Reservation(
                         UUID.randomUUID(),
                         COURT,
@@ -217,7 +217,7 @@ class ReservationServiceImplTest {
         when(courtRepository.findActiveById(invalidDto.courtId()))
                 .thenReturn(COURT);
 
-        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(), any(), any()))
+        when(reservationMapper.toReservation(any(CreateReservationDto.class), any(UUID.class), any(), any(), any()))
                 .thenAnswer(inv -> new Reservation(
                         UUID.randomUUID(),
                         COURT,

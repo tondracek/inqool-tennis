@@ -12,6 +12,9 @@ import java.util.UUID;
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
 
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "name", source = "createDto.name")
+    @Mapping(target = "phoneNumber", source = "createDto.phoneNumber")
     @Mapping(target = "deleted", constant = "false")
     @Mapping(target = "withDeleted", ignore = true)
     Customer toCustomer(CreateCustomerDto createDto, UUID id);
@@ -23,5 +26,9 @@ public interface CustomerMapper {
     @Mapping(target = "withDeleted", ignore = true)
     Customer toCustomer(UpdateCustomerDto update, Customer original);
 
+    @Mapping(target = "id", source = "customer.id")
+    @Mapping(target = "name", source = "customer.name")
+    @Mapping(target = "phoneNumber", source = "customer.phoneNumber")
+    @Mapping(target = "deleted", source = "customer.deleted")
     CustomerDetailDto toDetailDto(Customer customer);
 }

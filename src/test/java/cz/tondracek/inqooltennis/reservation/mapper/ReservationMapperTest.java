@@ -26,6 +26,7 @@ class ReservationMapperTest {
     void createToReservation() {
         Reservation result = reservationMapper.toReservation(
                 CREATE_DTO,
+                RESERVATION.getId(),
                 RESERVATION.getCustomer(),
                 RESERVATION.getPrice(),
                 RESERVATION.getCourt()

@@ -64,7 +64,7 @@ public class ReservationServiceImpl implements ReservationService {
         Court court = courtRepository.findActiveById(createDto.courtId());
         Price price = calculatePrice(court, createDto.startTime(), createDto.endTime(), createDto.gameType());
 
-        Reservation newReservation = mapper.toReservation(createDto, customer, price, court);
+        Reservation newReservation = mapper.toReservation(createDto, UUID.randomUUID(), customer, price, court);
 
         validateReservationForCreation(newReservation);
         repository.create(newReservation);
@@ -139,8 +139,8 @@ public class ReservationServiceImpl implements ReservationService {
             return customerRepository.findByPhoneNumber(createDto.customerPhoneNumber());
         } catch (NotFoundException e) {
             CreateCustomerDto createCustomerDto = new CreateCustomerDto(
-                    createDto.customerPhoneNumber(),
-                    createDto.customerName()
+                    createDto.customerName(),
+                    createDto.customerPhoneNumber()
             );
             Customer newCustomer = customerMapper.toCustomer(createCustomerDto, UUID.randomUUID());
 
